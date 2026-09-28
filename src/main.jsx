@@ -5,3 +5,5 @@ import './styles.css';
 createRoot(document.getElementById('root')).render(<React.StrictMode><App/></React.StrictMode>);
 
 import './agency.css';
+
+import './portfolio.css';
