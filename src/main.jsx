@@ -4,4 +4,5 @@ import App from './WaslivoV2.jsx';
 import './v2.css';
 import './v2-pages.css';
 import './v2-contact-mobile.css';
+import './v3-visuals.css';
 createRoot(document.getElementById('root')).render(<React.StrictMode><App/></React.StrictMode>);
