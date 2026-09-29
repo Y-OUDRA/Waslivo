@@ -9,3 +9,5 @@ import './agency.css';
 import './portfolio.css';
 
 import './business.css';
+
+import './studies.css';
