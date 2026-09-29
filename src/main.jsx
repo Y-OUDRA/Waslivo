@@ -5,4 +5,6 @@ import './v2.css';
 import './v2-pages.css';
 import './v2-contact-mobile.css';
 import './v3-visuals.css';
+import './project-previews.css';
+import './site-motion.css';
 createRoot(document.getElementById('root')).render(<React.StrictMode><App/></React.StrictMode>);

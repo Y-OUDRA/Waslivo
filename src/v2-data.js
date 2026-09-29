@@ -5,7 +5,7 @@ export {articles,whatsapp,whatsappNumber};
 export const services=sourceServices.map((item,index)=>({
   ...item,
   title:index===0?'تصميم مواقع إلكترونية احترافية':index===1?'تطوير مواقع مخصصة':index===5?'تصميم الهوية البصرية':index===6?'تصميم منشورات السوشيال ميديا':item.title,
-  image:['visuals/service-web.webp','visuals/service-development.webp','visuals/service-commerce.webp','visuals/service-apps.webp','visuals/service-logo.webp','visuals/service-identity.webp','visuals/service-social.webp'][index]
+  image:['visuals/service-web.webp','visuals/service-development.webp','visuals/service-commerce.webp','visuals/service-apps.webp','visuals/service-logo.webp','visuals/service-identity.webp','visuals/service-social-new.webp'][index]
 }));
 
 const extras=[
