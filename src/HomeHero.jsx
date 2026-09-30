@@ -75,7 +75,7 @@ export default function HomeHero(){return <section className="home-hero-premium"
       <h1><span>نبني حضوراً رقمياً</span><em>يليق بأعمالك</em></h1>
       <p>نصمم ونطوّر مواقع إلكترونية وتجارب رقمية تجمع بين التصميم الاحترافي، الأداء القوي، وتجربة الاستخدام الواضحة.</p>
       <div className="home-hero-actions">
-        <a className="home-hero-primary" href={whatsapp(heroWhatsapp)} target="_blank" rel="noopener noreferrer">ابدأ مشروعك الآن <ArrowLeft size={19}/></a>
+        <a className="home-hero-primary" href={whatsapp(heroWhatsapp)} target="_blank" rel="noopener noreferrer">احصل على استشارة مجانية <ArrowLeft size={19}/></a>
         <a className="home-hero-secondary" href="/portfolio">اطلع على أعمالنا <ArrowLeft size={19}/></a>
       </div>
       <div className="home-hero-trust" aria-label="مميزات العمل مع وصليفو">
