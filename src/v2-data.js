@@ -23,11 +23,21 @@ const projectDefinitions=[
   {id:'resort-hotel',assetId:'10-resort-hotel',filter:'الضيافة',title:'موقع منتجع وضيافة',summary:'تصوّر لموقع يعرّف بتجربة الإقامة والمرافق وخيارات الحجز.',goal:'مساعدة الزائر على استكشاف المكان واختيار تجربة الإقامة.',solution:'صور واضحة، عرض للمرافق والغرف، ومسار بسيط للاستفسار عن الحجز.',features:['عرض الغرف','المرافق','معلومات الإقامة','طلب حجز']}
 ];
 const assetMap=Object.fromEntries(projectAssetManifest.map(entry=>[entry.id,entry]));
+const previewImages={
+  automotive:'01-auto-services.webp',
+  education:'02-education-platform.webp',
+  ecommerce:'03-home-decor-store.webp',
+  restaurant:'04-restaurant-website.webp',
+  dental:'05-dental-clinic.webp',
+  property:'06-real-estate-platform.webp',
+  'beauty-store':'07-perfume-ecommerce.webp',
+  'facilities-services':'08-corporate-website.webp'
+};
 export const projects=projectDefinitions.map((definition,index)=>{
   const {assetId,...fields}=definition;
   const asset=assetMap[assetId];
   const base=`/images/projects/${assetId}`;
-  return {...existing[definition.id],...fields,images:{full:`${base}/${asset.full}`,desktop:`${base}/${asset.desktop}`,mobile:`${base}/${asset.mobile}`},number:String(index+1).padStart(2,'0')};
+  return {...existing[definition.id],...fields,previewImage:previewImages[definition.id]?`/images/waslivo/projects/${previewImages[definition.id]}`:null,images:{full:`${base}/${asset.full}`,desktop:`${base}/${asset.desktop}`,mobile:`${base}/${asset.mobile}`},number:String(index+1).padStart(2,'0')};
 });
 export const featuredProject=projects.find(item=>item.id==='property');
 export const filters=['الكل','العقارات','المطاعم','المتاجر الإلكترونية','العيادات','الشركات والخدمات','التعليم','التصميم الداخلي','الضيافة'];

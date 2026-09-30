@@ -16,6 +16,8 @@
 /* Keep the supplied website presentations intact inside the approved cards and frames. */
 .project-card .project-visual-photo{background:#f6f2eb}
 .project-card .project-visual-photo>img{width:100%;height:100%;object-fit:contain}
+.project-card-preview .project-visual-photo>img{object-fit:cover;object-position:center top}
+.project-card-preview-automotive .project-visual-photo>img,.project-card-preview-education .project-visual-photo>img{height:175%;object-position:center top}
 .project-visual-large.project-visual-photo{height:auto;aspect-ratio:auto;border-color:#e7e2d9;background:#f7f4ef}
 .project-visual-large.project-visual-photo picture{display:block;width:100%;aspect-ratio:1/1}
 .project-visual-large.project-visual-photo picture img{display:block;width:100%;height:100%;object-fit:contain}
