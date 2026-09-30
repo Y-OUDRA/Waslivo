@@ -17,7 +17,6 @@
 .project-card .project-visual-photo{background:#f6f2eb}
 .project-card .project-visual-photo>img{width:100%;height:100%;object-fit:contain}
 .project-visual-large.project-visual-photo{height:auto;aspect-ratio:auto;border-color:#e7e2d9;background:#f7f4ef}
-.project-visual-large.project-visual-photo picture{display:block;width:100%;aspect-ratio:1448/1086}
+.project-visual-large.project-visual-photo picture{display:block;width:100%;aspect-ratio:1/1}
 .project-visual-large.project-visual-photo picture img{display:block;width:100%;height:100%;object-fit:contain}
-@media(max-width:1100px){.project-visual-large.project-visual-photo picture{aspect-ratio:1/1}}
-@media(max-width:767px){.project-detail-hero>.container{width:calc(100% - 36px)}.project-visual-large.project-visual-photo{border-width:6px}.project-visual-large.project-visual-photo picture{aspect-ratio:353/1050}}
+@media(max-width:767px){.project-detail-hero>.container{width:calc(100% - 36px)}.project-visual-large.project-visual-photo{border-width:6px}}
