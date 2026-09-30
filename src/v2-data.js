@@ -24,14 +24,16 @@ const projectDefinitions=[
 ];
 const assetMap=Object.fromEntries(projectAssetManifest.map(entry=>[entry.id,entry]));
 const previewImages={
-  automotive:'01-auto-services.webp',
-  education:'02-education-platform.webp',
-  ecommerce:'03-home-decor-store.webp',
-  restaurant:'04-restaurant-website.webp',
-  dental:'05-dental-clinic.webp',
-  property:'06-real-estate-platform.webp',
-  'beauty-store':'07-perfume-ecommerce.webp',
-  'facilities-services':'08-corporate-website.webp'
+  automotive:'01-auto-services.png',
+  education:'02-education-platform.png',
+  ecommerce:'03-home-decor-store.png',
+  restaurant:'04-restaurant.png',
+  dental:'05-dental-clinic.png',
+  property:'06-real-estate.png',
+  'facilities-services':'07-facilities-services.png',
+  'beauty-store':'08-beauty-store.png',
+  'interior-design':'09-interior-design.png',
+  'resort-hotel':'10-resort-hotel.png'
 };
 export const projects=projectDefinitions.map((definition,index)=>{
   const {assetId,...fields}=definition;
