@@ -1,0 +1,82 @@
+[
+  {
+    "id": "01-auto-services",
+    "status": "existing",
+    "title_ar": "موقع خدمات سيارات",
+    "full": "full.jpg",
+    "desktop": "desktop.jpg",
+    "mobile": "mobile.jpg"
+  },
+  {
+    "id": "02-education-platform",
+    "status": "existing",
+    "title_ar": "منصة تعليمية",
+    "full": "full.jpg",
+    "desktop": "desktop.jpg",
+    "mobile": "mobile.jpg"
+  },
+  {
+    "id": "03-home-decor-store",
+    "status": "existing",
+    "title_ar": "متجر ديكور منزلي",
+    "full": "full.jpg",
+    "desktop": "desktop.jpg",
+    "mobile": "mobile.jpg"
+  },
+  {
+    "id": "04-restaurant",
+    "status": "existing",
+    "title_ar": "موقع مطعم",
+    "full": "full.jpg",
+    "desktop": "desktop.jpg",
+    "mobile": "mobile.jpg"
+  },
+  {
+    "id": "05-dental-clinic",
+    "status": "existing",
+    "title_ar": "موقع عيادة أسنان",
+    "full": "full.jpg",
+    "desktop": "desktop.jpg",
+    "mobile": "mobile.jpg"
+  },
+  {
+    "id": "06-real-estate",
+    "status": "existing",
+    "title_ar": "منصة عقارية",
+    "full": "full.jpg",
+    "desktop": "desktop.jpg",
+    "mobile": "mobile.jpg"
+  },
+  {
+    "id": "07-facilities-services",
+    "status": "new",
+    "title_ar": "شركة إدارة وتشغيل مرافق",
+    "full": "full.jpg",
+    "desktop": "desktop.jpg",
+    "mobile": "mobile.jpg"
+  },
+  {
+    "id": "08-beauty-store",
+    "status": "new",
+    "title_ar": "متجر عناية وجمال",
+    "full": "full.jpg",
+    "desktop": "desktop.jpg",
+    "mobile": "mobile.jpg"
+  },
+  {
+    "id": "09-interior-design",
+    "status": "new",
+    "title_ar": "مشروع تصميم داخلي",
+    "full": "full.jpg",
+    "desktop": "desktop.jpg",
+    "mobile": "mobile.jpg"
+  },
+  {
+    "id": "10-resort-hotel",
+    "status": "new",
+    "title_ar": "منتجع / فندق",
+    "full": "full.jpg",
+    "desktop": "desktop.jpg",
+    "mobile": "mobile.jpg"
+  }
+]

@@ -1,4 +1,5 @@
 import {services as sourceServices,projects as sourceProjects,articles,whatsapp,whatsappNumber} from './siteData';
+import projectAssetManifest from './project-assets-manifest.json';
 
 export {articles,whatsapp,whatsappNumber};
 
@@ -8,16 +9,28 @@ export const services=sourceServices.map((item,index)=>({
   image:['visuals/service-web.webp','visuals/service-development.webp','visuals/service-commerce.webp','visuals/service-apps.webp','visuals/service-logo.webp','visuals/service-identity.webp','visuals/service-social-new.webp'][index]
 }));
 
-const extras=[
-  {id:'ecommerce',title:'متجر منتجات مختارة',category:'المتاجر الإلكترونية',image:'skincare.webp',accent:'#ae835a',summary:'تصوّر لمتجر يعرض المنتجات ضمن فئات واضحة وتجربة شراء مريحة.',goal:'مساعدة الزائر على العثور على المنتجات وفهم تفاصيلها قبل الطلب.',solution:'صفحات منتجات مرتبة، صور واضحة، وعناصر ثقة ومسار شراء مختصر.',features:['صفحات منتجات','فئات واضحة','سلة مشتريات','تجربة جوال']},
-  {id:'education',title:'منصة تعليمية',category:'التعليم',image:'education-v2.webp',accent:'#376fa8',summary:'تصوّر لمنصة تقدم البرامج والدورات مع تسجيل واضح ومنظم.',goal:'عرض البرامج التعليمية ومحتواها بطريقة تسهّل الاختيار.',solution:'تصنيفات الدورات، صفحات تفاصيل، ومسار تسجيل مباشر.',features:['قائمة برامج','تفاصيل الدورات','نموذج تسجيل','لوحة محتوى']},
-  {id:'company',title:'موقع شركة خدمات',category:'الشركات والخدمات',image:'visuals/portfolio-company.webp',accent:'#b68c52',summary:'تصوّر لموقع شركة يوضح تخصصها وخدماتها ومسار الاستفسار.',goal:'تعريف الزائر بالشركة وخدماتها خلال زيارة قصيرة وواضحة.',solution:'واجهة مهنية، خدمات مرتبة، ومعلومات تساعد على بدء التواصل.',features:['تعريف بالشركة','عرض الخدمات','طلب استفسار','تجربة جوال']}
+const existing=Object.fromEntries(sourceProjects.map(project=>[project.id,project]));
+const projectDefinitions=[
+  {id:'automotive',assetId:'01-auto-services',filter:'الشركات والخدمات',featured:true},
+  {id:'education',assetId:'02-education-platform',filter:'التعليم',featured:true,title:'منصة تعليمية',summary:'تصوّر لمنصة تقدم البرامج والدورات مع تسجيل واضح ومنظم.',goal:'عرض البرامج التعليمية ومحتواها بطريقة تسهّل الاختيار.',solution:'تصنيفات الدورات، صفحات تفاصيل، ومسار تسجيل مباشر.',features:['قائمة برامج','تفاصيل الدورات','نموذج تسجيل','لوحة محتوى']},
+  {id:'ecommerce',assetId:'03-home-decor-store',filter:'المتاجر الإلكترونية',featured:true,title:'متجر ديكور منزلي',summary:'تصوّر لمتجر يعرض قطع الديكور ضمن فئات واضحة وتجربة شراء مريحة.',goal:'مساعدة الزائر على استكشاف المنتجات وفهم تفاصيلها قبل الطلب.',solution:'صفحات منتجات مرتبة، صور واضحة، ومسار شراء مختصر.',features:['صفحات منتجات','فئات واضحة','سلة مشتريات','تجربة جوال']},
+  {id:'restaurant',assetId:'04-restaurant',filter:'المطاعم',featured:true},
+  {id:'dental',assetId:'05-dental-clinic',filter:'العيادات',featured:true},
+  {id:'property',assetId:'06-real-estate',filter:'العقارات',featured:true},
+  {id:'facilities-services',assetId:'07-facilities-services',filter:'الشركات والخدمات',title:'موقع شركة خدمات وإدارة مرافق',summary:'تصوّر لموقع يعرّف بخدمات إدارة المرافق ويجعل طلب الاستفسار واضحاً.',goal:'عرض نطاق الخدمات ومجالات العمل بصورة منظمة.',solution:'أقسام واضحة للخدمات، معلومات عن آلية العمل، ومسار مباشر للتواصل.',features:['عرض الخدمات','مجالات العمل','طلب استفسار','تجربة جوال']},
+  {id:'beauty-store',assetId:'08-beauty-store',filter:'المتاجر الإلكترونية',title:'متجر إلكتروني للعناية والجمال',summary:'تصوّر لمتجر يعرض منتجات العناية والجمال بطريقة مرتبة وسهلة التصفح.',goal:'مساعدة الزائر على اكتشاف المنتجات واختيار ما يناسبه.',solution:'فئات منتجات واضحة، صفحات تفاصيل، وتجربة شراء مناسبة للجوال.',features:['فئات المنتجات','صفحات التفاصيل','سلة مشتريات','تصميم متجاوب']},
+  {id:'interior-design',assetId:'09-interior-design',filter:'التصميم الداخلي',title:'موقع أعمال التصميم الداخلي',summary:'تصوّر لموقع يعرض مشاريع التصميم الداخلي وخدمات الاستوديو.',goal:'تقديم الأعمال السابقة والخدمات في تجربة بصرية واضحة.',solution:'معرض مشاريع، صفحات خدمات، ومسار مباشر لمناقشة مشروع جديد.',features:['معرض أعمال','عرض الخدمات','تفاصيل المشاريع','طلب استشارة']},
+  {id:'resort-hotel',assetId:'10-resort-hotel',filter:'الضيافة',title:'موقع منتجع وضيافة',summary:'تصوّر لموقع يعرّف بتجربة الإقامة والمرافق وخيارات الحجز.',goal:'مساعدة الزائر على استكشاف المكان واختيار تجربة الإقامة.',solution:'صور واضحة، عرض للمرافق والغرف، ومسار بسيط للاستفسار عن الحجز.',features:['عرض الغرف','المرافق','معلومات الإقامة','طلب حجز']}
 ];
-const categoryMap={dental:'العيادات',restaurant:'المطاعم',property:'العقارات',legal:'الشركات والخدمات',beauty:'الهوية البصرية',automotive:'الشركات والخدمات',plumbing:'الشركات والخدمات'};
-const showcaseImages={dental:'portfolio-dental',restaurant:'portfolio-restaurant',property:'portfolio-property',legal:'portfolio-legal',beauty:'portfolio-beauty',automotive:'portfolio-automotive',plumbing:'portfolio-plumbing',ecommerce:'portfolio-commerce',education:'portfolio-education',company:'portfolio-company'};
-export const projects=[...sourceProjects,...extras].map((item,index)=>({...item,image:item.image.replace('.png','.webp'),showcase:`visuals/${showcaseImages[item.id]}.webp`,filter:categoryMap[item.id]||item.category,featured:item.id==='property',number:String(index+1).padStart(2,'0')}));
-export const featuredProject=projects.find(item=>item.featured);
-export const filters=['الكل','العقارات','المطاعم','المتاجر الإلكترونية','العيادات','الشركات والخدمات','التعليم','الهوية البصرية'];
+const assetMap=Object.fromEntries(projectAssetManifest.map(entry=>[entry.id,entry]));
+export const projects=projectDefinitions.map((definition,index)=>{
+  const {assetId,...fields}=definition;
+  const asset=assetMap[assetId];
+  const base=`/images/projects/${assetId}`;
+  return {...existing[definition.id],...fields,images:{full:`${base}/${asset.full}`,desktop:`${base}/${asset.desktop}`,mobile:`${base}/${asset.mobile}`},number:String(index+1).padStart(2,'0')};
+});
+export const featuredProject=projects.find(item=>item.id==='property');
+export const filters=['الكل','العقارات','المطاعم','المتاجر الإلكترونية','العيادات','الشركات والخدمات','التعليم','التصميم الداخلي','الضيافة'];
 
 export const faqItems=[
   ['ما هي تكلفة تصميم الموقع؟','تبدأ الباقات من 799 ريال. يختلف السعر النهائي بحسب الصفحات والوظائف والمحتوى، ونحدده بعد مناقشة التفاصيل.'],
