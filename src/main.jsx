@@ -7,4 +7,8 @@ import './v2-contact-mobile.css';
 import './v3-visuals.css';
 import './project-previews.css';
 import './site-motion.css';
+import './footer-social.css';
+import './home-hero-premium.css';
+import './process-section.css';
+import './home-trust.css';
 createRoot(document.getElementById('root')).render(<React.StrictMode><App/></React.StrictMode>);

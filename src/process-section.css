@@ -1,0 +1,49 @@
+.waslivo-process-section{background:radial-gradient(circle at 50% 4%,#12334c 0,transparent 42%),#061f35;color:#fff;padding-block:88px 105px}
+.waslivo-process-section>.container{max-width:1020px}
+.waslivo-process-intro{text-align:center;max-width:620px;margin:0 auto 57px}
+.waslivo-process-intro>span{display:block;color:#d5a24a;font-size:15px;font-weight:900;margin-bottom:9px}
+.waslivo-process-intro h2{color:#fff;font-size:clamp(32px,3.4vw,48px);font-weight:900;line-height:1.35;margin:0 0 12px}
+.waslivo-process-intro p{color:#c4ced6;font-size:15px;line-height:1.9;margin:0}
+.waslivo-process-timeline{direction:ltr;display:grid;gap:40px;list-style:none;margin:0;padding:0}
+.waslivo-process-step{display:grid;grid-template-columns:94px minmax(0,1fr);gap:28px;min-width:0}
+.waslivo-process-rail{position:relative;align-self:stretch;text-align:center;color:#788c9c70;transition:color 400ms ease}
+.waslivo-process-rail>span{display:block;font:900 clamp(58px,6vw,76px)/1 'Cairo',sans-serif;letter-spacing:-.08em;direction:ltr}
+.waslivo-process-step:not(:last-child) .waslivo-process-rail:after{content:'';position:absolute;top:82px;bottom:-40px;left:50%;width:3px;border-radius:3px;background:#8393a42b;transform:translateX(-50%);transition:background 400ms ease}
+.waslivo-process-step.is-active .waslivo-process-rail{color:#d5a24a}
+.waslivo-process-step.is-active .waslivo-process-rail:after{background:#d5a24a}
+.waslivo-process-card{position:relative;isolation:isolate;min-height:220px;overflow:hidden;display:flex;align-items:center;border:1px solid #ffffff12;border-radius:20px;background:#0b2940;box-shadow:0 8px 25px #0000000d;opacity:.72;transform:translateY(28px) scale(.985);transition:opacity 700ms cubic-bezier(.22,1,.36,1),transform 700ms cubic-bezier(.22,1,.36,1),border-color 400ms ease,box-shadow 400ms ease}
+.waslivo-process-step.is-active .waslivo-process-card{border-color:#d5a24abf;box-shadow:0 12px 35px #00000029;opacity:1;transform:translateY(0) scale(1)}
+.waslivo-process-ghost{position:absolute;z-index:0;inset-inline-start:22px;top:2px;color:#ffffff10;font:900 clamp(110px,15vw,180px)/1 'Cairo',sans-serif;letter-spacing:-.1em;pointer-events:none;transition:color 400ms ease}
+.waslivo-process-step.is-active .waslivo-process-ghost{color:#d5a24a1a}
+.waslivo-process-card-content{position:relative;z-index:1;padding:36px 43px;max-width:740px}
+.waslivo-process-pill{display:inline-flex;align-items:center;justify-content:center;min-width:91px;padding:5px 13px;border-radius:999px;background:#ffffff14;color:#d8b77d;font:800 11px/1.5 'Cairo',sans-serif;letter-spacing:.025em;transition:background 400ms ease,color 400ms ease}
+.waslivo-process-step.is-active .waslivo-process-pill{background:#d5a24a;color:#061f35}
+.waslivo-process-card h3{position:relative;font-size:clamp(20px,2.2vw,27px);font-weight:900;line-height:1.45;margin:15px 0 9px;color:#fff}
+.waslivo-process-card p{position:relative;color:#c4ced6;font-size:14px;line-height:1.9;margin:0;max-width:650px}
+@media(max-width:700px){
+  .waslivo-process-section{padding-block:68px 78px}
+  .waslivo-process-intro{margin-bottom:47px}
+  .waslivo-process-intro>span{font-size:13px}
+  .waslivo-process-intro h2{font-size:clamp(30px,8vw,38px)}
+  .waslivo-process-intro p{font-size:13px;line-height:1.8}
+  .waslivo-process-timeline{gap:34px}
+  .waslivo-process-step{grid-template-columns:54px minmax(0,1fr);gap:11px}
+  .waslivo-process-rail>span{font-size:46px}
+  .waslivo-process-step:not(:last-child) .waslivo-process-rail:after{top:54px;bottom:-34px;width:2px}
+  .waslivo-process-card{min-height:214px;border-radius:15px}
+  .waslivo-process-ghost{font-size:clamp(78px,22vw,100px);inset-inline-start:15px;top:12px}
+  .waslivo-process-card-content{padding:22px 23px}
+  .waslivo-process-pill{min-width:76px;padding:4px 10px;font-size:9px}
+  .waslivo-process-card h3{font-size:clamp(17px,4.5vw,21px);margin:13px 0 8px}
+  .waslivo-process-card p{font-size:11.5px;line-height:1.8}
+}
+@media(max-width:375px){
+  .waslivo-process-step{grid-template-columns:49px minmax(0,1fr);gap:9px}
+  .waslivo-process-rail>span{font-size:42px}
+  .waslivo-process-card-content{padding:20px 18px}
+  .waslivo-process-card p{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){
+  .waslivo-process-card{transform:none;opacity:1;transition:none}
+  .waslivo-process-rail,.waslivo-process-rail:after,.waslivo-process-ghost,.waslivo-process-pill{transition:none}
+}

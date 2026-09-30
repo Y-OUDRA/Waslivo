@@ -44,20 +44,6 @@
 }
 
 @media (max-width: 600px) {
-  .hero-home,
-  .hero-home .hero-inner {
-    min-height: 760px;
-  }
-
-  .hero-home .hero-inner {
-    padding-top: 390px;
-  }
-
-  .hero-home .hero-image {
-    height: 62%;
-    object-position: center top;
-  }
-
   .project-visual-large.project-visual-photo {
     height: auto;
     aspect-ratio: 3 / 2;
