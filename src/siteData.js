@@ -1,5 +1,6 @@
 export const assets='/assets/';
-export const whatsappNumber='212633485489';
+import {site} from './site-config';
+export const whatsappNumber=site.phone.replace('+','');
 export const whatsapp=(message='مرحباً وصليفو، أود مناقشة مشروع موقع إلكتروني.')=>`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
 export const services=[

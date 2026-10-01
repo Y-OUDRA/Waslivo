@@ -1,293 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url>
-    <loc>https://waslivo.agency/</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/services</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/services</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/portfolio</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/portfolio</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/about</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/about"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/about"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/about</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/about"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/about"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/packages</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/packages"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/packages"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/packages</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/packages"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/packages"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/contact</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/contact"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/contact"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/contact</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/contact"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/contact"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/blog</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/blog"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/blog"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/blog</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/blog"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/blog"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/privacy</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/privacy"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/privacy"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/privacy</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/privacy"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/privacy"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/terms</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/terms"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/terms"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/terms</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/terms"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/terms"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/services/websites</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/websites"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/websites"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/services/websites</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/websites"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/websites"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/services/development</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/development"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/development"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/services/development</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/development"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/development"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/services/commerce</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/commerce"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/commerce"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/services/commerce</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/commerce"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/commerce"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/services/apps</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/apps"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/apps"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/services/apps</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/apps"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/apps"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/services/logos</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/logos"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/logos"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/services/logos</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/logos"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/logos"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/services/identity</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/identity"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/identity"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/services/identity</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/identity"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/identity"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/services/social</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/social"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/social"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/services/social</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/services/social"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/services/social"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/portfolio/automotive</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/automotive"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/automotive"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/portfolio/automotive</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/automotive"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/automotive"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/portfolio/education</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/education"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/education"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/portfolio/education</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/education"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/education"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/portfolio/ecommerce</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/ecommerce"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/ecommerce"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/portfolio/ecommerce</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/ecommerce"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/ecommerce"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/portfolio/restaurant</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/restaurant"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/restaurant"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/portfolio/restaurant</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/restaurant"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/restaurant"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/portfolio/dental</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/dental"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/dental"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/portfolio/dental</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/dental"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/dental"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/portfolio/property</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/property"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/property"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/portfolio/property</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/property"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/property"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/portfolio/facilities-services</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/facilities-services"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/facilities-services"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/portfolio/facilities-services</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/facilities-services"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/facilities-services"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/portfolio/beauty-store</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/beauty-store"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/beauty-store"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/portfolio/beauty-store</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/beauty-store"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/beauty-store"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/portfolio/interior-design</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/interior-design"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/interior-design"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/portfolio/interior-design</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/interior-design"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/interior-design"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/portfolio/resort-hotel</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/resort-hotel"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/resort-hotel"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/portfolio/resort-hotel</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/portfolio/resort-hotel"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/portfolio/resort-hotel"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/blog/website-brief</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/blog/website-brief"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/blog/website-brief"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/blog/website-brief</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/blog/website-brief"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/blog/website-brief"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/blog/brand-site</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/blog/brand-site"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/blog/brand-site"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/blog/brand-site</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/blog/brand-site"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/blog/brand-site"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/blog/mobile-first</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/blog/mobile-first"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/blog/mobile-first"/>
-  </url>
-  <url>
-    <loc>https://waslivo.agency/en/blog/mobile-first</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://waslivo.agency/blog/mobile-first"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://waslivo.agency/en/blog/mobile-first"/>
-  </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://waslivo.agency/</loc></url>
+  <url><loc>https://waslivo.agency/en</loc></url>
+  <url><loc>https://waslivo.agency/services</loc></url>
+  <url><loc>https://waslivo.agency/en/services</loc></url>
+  <url><loc>https://waslivo.agency/portfolio</loc></url>
+  <url><loc>https://waslivo.agency/en/portfolio</loc></url>
+  <url><loc>https://waslivo.agency/about</loc></url>
+  <url><loc>https://waslivo.agency/en/about</loc></url>
+  <url><loc>https://waslivo.agency/packages</loc></url>
+  <url><loc>https://waslivo.agency/en/packages</loc></url>
+  <url><loc>https://waslivo.agency/contact</loc></url>
+  <url><loc>https://waslivo.agency/en/contact</loc></url>
+  <url><loc>https://waslivo.agency/blog</loc></url>
+  <url><loc>https://waslivo.agency/en/blog</loc></url>
+  <url><loc>https://waslivo.agency/privacy</loc></url>
+  <url><loc>https://waslivo.agency/en/privacy</loc></url>
+  <url><loc>https://waslivo.agency/terms</loc></url>
+  <url><loc>https://waslivo.agency/en/terms</loc></url>
+  <url><loc>https://waslivo.agency/services/websites</loc></url>
+  <url><loc>https://waslivo.agency/en/services/websites</loc></url>
+  <url><loc>https://waslivo.agency/services/development</loc></url>
+  <url><loc>https://waslivo.agency/en/services/development</loc></url>
+  <url><loc>https://waslivo.agency/services/commerce</loc></url>
+  <url><loc>https://waslivo.agency/en/services/commerce</loc></url>
+  <url><loc>https://waslivo.agency/services/apps</loc></url>
+  <url><loc>https://waslivo.agency/en/services/apps</loc></url>
+  <url><loc>https://waslivo.agency/services/logos</loc></url>
+  <url><loc>https://waslivo.agency/en/services/logos</loc></url>
+  <url><loc>https://waslivo.agency/services/identity</loc></url>
+  <url><loc>https://waslivo.agency/en/services/identity</loc></url>
+  <url><loc>https://waslivo.agency/services/social</loc></url>
+  <url><loc>https://waslivo.agency/en/services/social</loc></url>
+  <url><loc>https://waslivo.agency/portfolio/automotive</loc></url>
+  <url><loc>https://waslivo.agency/en/portfolio/automotive</loc></url>
+  <url><loc>https://waslivo.agency/portfolio/education</loc></url>
+  <url><loc>https://waslivo.agency/en/portfolio/education</loc></url>
+  <url><loc>https://waslivo.agency/portfolio/ecommerce</loc></url>
+  <url><loc>https://waslivo.agency/en/portfolio/ecommerce</loc></url>
+  <url><loc>https://waslivo.agency/portfolio/restaurant</loc></url>
+  <url><loc>https://waslivo.agency/en/portfolio/restaurant</loc></url>
+  <url><loc>https://waslivo.agency/portfolio/dental</loc></url>
+  <url><loc>https://waslivo.agency/en/portfolio/dental</loc></url>
+  <url><loc>https://waslivo.agency/portfolio/property</loc></url>
+  <url><loc>https://waslivo.agency/en/portfolio/property</loc></url>
+  <url><loc>https://waslivo.agency/portfolio/facilities-services</loc></url>
+  <url><loc>https://waslivo.agency/en/portfolio/facilities-services</loc></url>
+  <url><loc>https://waslivo.agency/portfolio/beauty-store</loc></url>
+  <url><loc>https://waslivo.agency/en/portfolio/beauty-store</loc></url>
+  <url><loc>https://waslivo.agency/portfolio/interior-design</loc></url>
+  <url><loc>https://waslivo.agency/en/portfolio/interior-design</loc></url>
+  <url><loc>https://waslivo.agency/portfolio/resort-hotel</loc></url>
+  <url><loc>https://waslivo.agency/en/portfolio/resort-hotel</loc></url>
+  <url><loc>https://waslivo.agency/blog/website-brief</loc></url>
+  <url><loc>https://waslivo.agency/en/blog/website-brief</loc></url>
+  <url><loc>https://waslivo.agency/blog/brand-site</loc></url>
+  <url><loc>https://waslivo.agency/en/blog/brand-site</loc></url>
+  <url><loc>https://waslivo.agency/blog/mobile-first</loc></url>
+  <url><loc>https://waslivo.agency/en/blog/mobile-first</loc></url>
+  <url><loc>https://waslivo.agency/sa</loc></url>
+  <url><loc>https://waslivo.agency/en/sa</loc></url>
+  <url><loc>https://waslivo.agency/ae</loc></url>
+  <url><loc>https://waslivo.agency/en/ae</loc></url>
+  <url><loc>https://waslivo.agency/kw</loc></url>
+  <url><loc>https://waslivo.agency/en/kw</loc></url>
+  <url><loc>https://waslivo.agency/qa</loc></url>
+  <url><loc>https://waslivo.agency/en/qa</loc></url>
+  <url><loc>https://waslivo.agency/ma</loc></url>
+  <url><loc>https://waslivo.agency/en/ma</loc></url>
 </urlset>

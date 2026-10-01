@@ -8,24 +8,30 @@ import react from '@vitejs/plugin-react'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const dist = path.join(root, 'dist')
-const sitemap = await readFile(path.join(root, 'public', 'sitemap.xml'), 'utf8')
-const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => new URL(match[1]))
 const template = await readFile(path.join(dist, 'index.html'), 'utf8')
 const builtAssets = [...template.matchAll(/<script type="module"[^>]*><\/script>|<link rel="stylesheet" crossorigin[^>]*>/g)].map(match => match[0]).join('\n')
 const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char])
 const jsonLd = value => JSON.stringify(value).replace(/</g, '\\u003c')
+const verification = (name, value) => value && /^[A-Za-z0-9_-]+$/.test(value)
+  ? `<meta name="${name}" content="${escapeHtml(value)}"/>` : ''
 
 const vite = await createServer({ root, configFile: false, plugins: [react()], server: { middlewareMode: true }, appType: 'custom', logLevel: 'error' })
 try {
-  const [{ default: App }, { getSeo, getStructuredData, SITE_URL }] = await Promise.all([
+  const [{ default: App }, { getSeo, getStructuredData, indexablePaths, SITE_URL }] = await Promise.all([
     vite.ssrLoadModule('/src/WaslivoV2.jsx'),
     vite.ssrLoadModule('/src/seo-data.js'),
   ])
-  for (const url of urls) {
-    if (url.origin !== SITE_URL) throw new Error(`Unexpected sitemap origin: ${url}`)
-    const seo = getSeo(url.pathname)
-    if (!seo) throw new Error(`No SEO data for ${url.pathname}`)
-    const markup = renderToString(React.createElement(App, { initialPath: url.pathname }))
+  const seoPages = indexablePaths.map(pathname => getSeo(pathname))
+  if (seoPages.some(page => !page)) throw new Error('The SEO route registry includes a page without metadata')
+  if (new Set(seoPages.map(page => page.path)).size !== seoPages.length) throw new Error('Duplicate SEO routes')
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${seoPages.map(page => `  <url><loc>${escapeHtml(page.url)}</loc></url>`).join('\n')}\n</urlset>\n`
+  await Promise.all([
+    writeFile(path.join(root, 'public', 'sitemap.xml'), sitemap),
+    writeFile(path.join(dist, 'sitemap.xml'), sitemap),
+  ])
+  for (const seo of seoPages) {
+    if (new URL(seo.url).origin !== SITE_URL) throw new Error(`Unexpected sitemap origin: ${seo.url}`)
+    const markup = renderToString(React.createElement(App, { initialPath: seo.path }))
     const head = [
       '<meta charset="UTF-8"/>',
       '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>',
@@ -33,9 +39,10 @@ try {
       `<title>${escapeHtml(seo.title)}</title>`,
       `<meta name="description" content="${escapeHtml(seo.description)}"/>`,
       '<meta name="robots" content="index,follow,max-image-preview:large"/>',
+      verification('google-site-verification', process.env.GOOGLE_SITE_VERIFICATION),
+      verification('msvalidate.01', process.env.BING_SITE_VERIFICATION),
       `<link rel="canonical" href="${escapeHtml(seo.url)}"/>`,
-      `<link rel="alternate" hreflang="ar" href="${escapeHtml(seo.arUrl)}"/>`,
-      `<link rel="alternate" hreflang="en" href="${escapeHtml(seo.enUrl)}"/>`,
+      ...seo.hreflangs.map(([lang, href]) => `<link rel="alternate" hreflang="${lang}" href="${escapeHtml(href)}"/>`),
       `<meta property="og:type" content="${seo.kind === 'article' ? 'article' : 'website'}"/>`,
       `<meta property="og:site_name" content="WASLIVO"/>`,
       `<meta property="og:title" content="${escapeHtml(seo.title)}"/>`,
@@ -55,10 +62,10 @@ try {
     ].join('\n')
     const dir = seo.lang === 'en' ? 'ltr' : 'rtl'
     const html = `<!doctype html><html lang="${seo.lang}" dir="${dir}"><head>${head}</head><body><div id="root">${markup}</div></body></html>`
-    if (url.pathname === '/') {
+    if (seo.path === '/') {
       await writeFile(path.join(dist, 'index.html'), html)
     } else {
-      const routePath = path.join(dist, url.pathname.slice(1))
+      const routePath = path.join(dist, seo.path.slice(1))
       await mkdir(routePath, { recursive: true })
       await writeFile(path.join(routePath, 'index.html'), html)
       await writeFile(`${routePath}.html`, html)
@@ -66,7 +73,7 @@ try {
   }
   const notFound = renderToString(React.createElement(App, { initialPath: '/404' }))
   await writeFile(path.join(dist, '404.html'), `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="robots" content="noindex,follow"/><title>الصفحة غير موجودة | وصليفو</title><link rel="icon" href="/assets/favicon.svg"/>${builtAssets}</head><body><div id="root">${notFound}</div></body></html>`)
-  console.log(`Prerendered ${urls.length} Arabic and English pages.`)
+  console.log(`Prerendered ${seoPages.length} Arabic and English pages.`)
 } finally {
   await vite.close()
 }

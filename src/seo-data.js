@@ -1,14 +1,12 @@
 import { articles, projects, services } from './v2-data'
 import { enArticles, enProjects, enServices } from './english-data'
+import { marketCodes, markets } from './market-data'
+import { site } from './site-config'
 
-export const SITE_URL = 'https://waslivo.agency'
-const logo = `${SITE_URL}/assets/waslivo-logo.webp`
+export const SITE_URL = site.url
+const logo = `${SITE_URL}${site.logo}`
 const defaultImage = `${SITE_URL}/assets/visuals/hero-main.webp`
-const socialProfiles = [
-  'https://www.instagram.com/waslivo_agency/?utm_source=ig_web_button_share_sheet',
-  'https://www.facebook.com/profile.php?id=61595063485558',
-  'https://www.tiktok.com/@waslivo_agency',
-]
+const socialProfiles = Object.values(site.social)
 const arPages = {
   '/': ['تصميم وتطوير مواقع إلكترونية احترافية | وصليفو', 'وصليفو تصمم وتطوّر مواقع إلكترونية ومتاجر رقمية بهوية تناسب أعمالك، مع تجربة واضحة ومتجاوبة ودعم بعد الإطلاق.'],
   '/services': ['خدمات تصميم وتطوير المواقع والهوية | وصليفو', 'اكتشف خدمات وصليفو في تصميم المواقع وتطويرها، المتاجر الإلكترونية، تطبيقات الجوال، الشعارات والهوية البصرية.'],
@@ -32,6 +30,14 @@ const enPages = {
   '/terms': ['Terms & Conditions | WASLIVO', 'Read the WASLIVO website terms and how project scope, deliverables, timing, and pricing are agreed.'],
 }
 
+export const indexablePaths = [
+  ...Object.keys(arPages),
+  ...services.map(item => `/services/${item.id}`),
+  ...projects.map(item => `/portfolio/${item.id}`),
+  ...articles.map(item => `/blog/${item.id}`),
+  ...marketCodes.map(code => `/${code}`),
+].flatMap(path => [path, path === '/' ? '/en' : `/en${path}`])
+
 export function getSeo(path) {
   const normalized = path.replace(/\/$/, '') || '/'
   const english = normalized === '/en' || normalized.startsWith('/en/')
@@ -46,7 +52,14 @@ export function getSeo(path) {
   const contentProjects = english ? enProjects : projects
   const contentServices = english ? enServices : services
   const contentArticles = english ? enArticles : articles
-  if (localPath.startsWith('/portfolio/')) {
+  const marketCode = localPath.slice(1)
+  if (markets[marketCode]) {
+    entity = markets[marketCode]
+    const copy = entity[lang]
+    title = copy.title
+    description = copy.description
+    kind = 'market'
+  } else if (localPath.startsWith('/portfolio/')) {
     entity = contentProjects.find(item => localPath === `/portfolio/${item.id}`)
     if (entity) {
       title = `${entity.title} | ${english ? 'WASLIVO Portfolio' : 'أعمال وصليفو'}`
@@ -79,13 +92,18 @@ export function getSeo(path) {
   const url = `${SITE_URL}${normalized === '/' ? '/' : normalized}`
   const arUrl = `${SITE_URL}${localPath === '/' ? '/' : localPath}`
   const enUrl = `${SITE_URL}/en${localPath === '/' ? '' : localPath}`
-  return { path: normalized, localPath, lang, title, description, image, url, arUrl, enUrl, kind, parent, entity }
+  const hreflangs = kind === 'market'
+    ? [[`ar-${entity.region}`, arUrl], [`en-${entity.region}`, enUrl], ['x-default', arUrl]]
+    : [['ar', arUrl], ['en', enUrl], ['x-default', arUrl]]
+  return { path: normalized, localPath, lang, title, description, image, url, arUrl, enUrl, hreflangs, kind, parent, entity }
 }
 
 export function getStructuredData(seo) {
   const organization = {
-    '@type': 'Organization', '@id': `${SITE_URL}/#organization`, name: 'WASLIVO', alternateName: 'وصليفو',
-    url: `${SITE_URL}/`, logo, telephone: '+212633485489', sameAs: socialProfiles,
+    '@type': 'Organization', '@id': `${SITE_URL}/#organization`, name: site.name, alternateName: site.arabicName,
+    url: `${SITE_URL}/`, logo, description: 'Website design, development and digital identity studio.',
+    contactPoint: { '@type': 'ContactPoint', telephone: site.phone, contactType: 'customer service', availableLanguage: ['Arabic', 'English'] },
+    sameAs: socialProfiles,
   }
   const webpage = {
     '@type': 'WebPage', '@id': `${seo.url}#webpage`, url: seo.url, name: seo.title,
@@ -115,6 +133,20 @@ export function getStructuredData(seo) {
     '@type': 'Service', '@id': `${seo.url}#service`, name: seo.entity.title,
     description: seo.description, url: seo.url, provider: { '@id': organization['@id'] },
   })
+  if (seo.kind === 'market') {
+    graph.push({
+      '@type': 'BreadcrumbList', '@id': `${seo.url}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: seo.lang === 'en' ? 'Home' : 'الرئيسية', item: seo.lang === 'en' ? `${SITE_URL}/en` : `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: seo.lang === 'en' ? seo.entity.country : seo.entity.countryAr, item: seo.url },
+      ],
+    })
+    graph.push({
+      '@type': 'Service', '@id': `${seo.url}#service`, name: seo.entity[seo.lang].h1,
+      description: seo.description, url: seo.url, provider: { '@id': organization['@id'] },
+      areaServed: { '@type': 'Country', name: seo.entity.country },
+    })
+  }
   if (seo.kind === 'article') graph.push({
     '@type': 'Article', '@id': `${seo.url}#article`, headline: seo.entity.title,
     description: seo.description, image: seo.image, inLanguage: seo.lang,
