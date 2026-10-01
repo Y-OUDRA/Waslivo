@@ -24,13 +24,13 @@ function CodeWindow(){return <div className="home-hero-editor" aria-hidden="true
 </div>}
 
 const floatingCards=[
-  {className:'card-security',Icon:ShieldCheck,label:'Performance',value:'سريع وآمن'},
-  {className:'card-growth',Icon:TrendingUp,label:'Growth',value:'جاهز للنمو'},
-  {className:'card-responsive',Icon:Smartphone,label:'Responsive',value:'كل الأجهزة'},
-  {className:'card-custom',Icon:Code2,label:'Custom Build',value:'حسب مشروعك'},
+  {className:'card-security',Icon:ShieldCheck,label:'Performance',value:'سريع وآمن',valueEn:'Fast & secure'},
+  {className:'card-growth',Icon:TrendingUp,label:'Growth',value:'جاهز للنمو',valueEn:'Ready to grow'},
+  {className:'card-responsive',Icon:Smartphone,label:'Responsive',value:'كل الأجهزة',valueEn:'Every device'},
+  {className:'card-custom',Icon:Code2,label:'Custom Build',value:'حسب مشروعك',valueEn:'Built for you'},
 ];
 
-function HeroVisual(){
+function HeroVisual({lang='ar'}){
   const visualRef=useRef(null);
   useEffect(()=>{
     const visual=visualRef.current;
@@ -64,26 +64,26 @@ function HeroVisual(){
   },[]);
   return <div className="home-hero-visual" ref={visualRef} aria-hidden="true">
     <div className="home-hero-editor-layer"><CodeWindow/></div>
-    {floatingCards.map(({className,Icon,label,value})=><div className={`home-hero-float ${className}`} key={className}><div className="home-hero-float-card"><span className="home-hero-float-icon"><Icon size={22}/></span><span><small>{label}</small><strong>{value}</strong></span></div></div>)}
+    {floatingCards.map(({className,Icon,label,value,valueEn})=><div className={`home-hero-float ${className}`} key={className}><div className="home-hero-float-card"><span className="home-hero-float-icon"><Icon size={22}/></span><span><small>{label}</small><strong>{lang==='en'?valueEn:value}</strong></span></div></div>)}
   </div>;
 }
 
-export default function HomeHero(){return <section className="home-hero-premium" dir="rtl">
+export default function HomeHero({lang='ar'}){const english=lang==='en';return <section className="home-hero-premium" dir={english?'ltr':'rtl'}>
   <div className="container home-hero-layout">
     <div className="home-hero-copy">
-      <span className="home-hero-eyebrow"><i/>حلول رقمية لأعمالك</span>
-      <h1><span>نبني حضوراً رقمياً</span><em>يليق بأعمالك</em></h1>
-      <p>نصمم ونطوّر مواقع إلكترونية وتجارب رقمية تجمع بين التصميم الاحترافي، الأداء القوي، وتجربة الاستخدام الواضحة.</p>
+      <span className="home-hero-eyebrow"><i/>{english?'Digital solutions for your business':'حلول رقمية لأعمالك'}</span>
+      <h1><span>{english?'Build a digital presence':'نبني حضوراً رقمياً'}</span><em>{english?'that fits your ambition':'يليق بأعمالك'}</em></h1>
+      <p>{english?'We design and develop websites and digital experiences that bring together thoughtful design, strong performance, and a clear user journey.':'نصمم ونطوّر مواقع إلكترونية وتجارب رقمية تجمع بين التصميم الاحترافي، الأداء القوي، وتجربة الاستخدام الواضحة.'}</p>
       <div className="home-hero-actions">
-        <a className="home-hero-primary" href={whatsapp(heroWhatsapp)} target="_blank" rel="noopener noreferrer">احصل على استشارة مجانية <ArrowLeft size={19}/></a>
-        <a className="home-hero-secondary" href="/portfolio">اطلع على أعمالنا <ArrowLeft size={19}/></a>
+        <a className="home-hero-primary" href={whatsapp(english?'Hello WASLIVO, I would like to discuss a new website project.':heroWhatsapp)} target="_blank" rel="noopener noreferrer">{english?'Get a free consultation':'احصل على استشارة مجانية'} <ArrowLeft size={19}/></a>
+        <a className="home-hero-secondary" href={english?'/en/portfolio':'/portfolio'}>{english?'Explore our work':'اطلع على أعمالنا'} <ArrowLeft size={19}/></a>
       </div>
-      <div className="home-hero-trust" aria-label="مميزات العمل مع وصليفو">
-        <span><Monitor size={18}/>تصميم متجاوب</span>
-        <span><Zap size={18}/>أداء سريع</span>
-        <span><Headphones size={18}/>دعم ومتابعة</span>
+      <div className="home-hero-trust" aria-label={english?'Why work with WASLIVO':'مميزات العمل مع وصليفو'}>
+        <span><Monitor size={18}/>{english?'Responsive design':'تصميم متجاوب'}</span>
+        <span><Zap size={18}/>{english?'Fast performance':'أداء سريع'}</span>
+        <span><Headphones size={18}/>{english?'Ongoing support':'دعم ومتابعة'}</span>
       </div>
     </div>
-    <HeroVisual/>
+    <HeroVisual lang={lang}/>
   </div>
 </section>}

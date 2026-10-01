@@ -1,5 +1,5 @@
 import React from 'react';
-import {createRoot} from 'react-dom/client';
+import {createRoot,hydrateRoot} from 'react-dom/client';
 import App from './WaslivoV2.jsx';
 import './v2.css';
 import './v2-pages.css';
@@ -11,4 +11,8 @@ import './footer-social.css';
 import './home-hero-premium.css';
 import './process-section.css';
 import './home-trust.css';
-createRoot(document.getElementById('root')).render(<React.StrictMode><App/></React.StrictMode>);
+import './english-site.css';
+const root=document.getElementById('root');
+const app=<React.StrictMode><App/></React.StrictMode>;
+if(root.hasChildNodes())hydrateRoot(root,app);
+else createRoot(root).render(app);

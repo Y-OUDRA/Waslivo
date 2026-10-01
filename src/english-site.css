@@ -1,0 +1,24 @@
+.language-switch{display:inline-flex;align-items:center;justify-content:center;flex:none;gap:7px;white-space:nowrap;line-height:1;font-size:13px;--language-active:#08273f;--language-muted:#73818c;--language-divider:#cbd3d8}
+.language-switch a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 2px;color:var(--language-muted);font-weight:500;transition:color .2s ease,opacity .2s ease}
+.language-switch a:hover{color:var(--language-active);opacity:1}
+.language-switch a.active{color:var(--language-active);font-weight:700}
+.language-switch .language-divider{color:var(--language-divider);font-weight:400;user-select:none}
+.header-dark .language-switch{--language-active:#fbfaf7;--language-muted:#ffffff73;--language-divider:#ffffff40}
+.english-site{direction:ltr;text-align:left}
+.english-site .header-inner,.english-site .header-nav,.english-site .footer-main,.english-site .footer-bottom{direction:ltr}
+.english-site .header-nav a{white-space:nowrap}
+.english-site .home-hero-copy{direction:ltr}
+.english-site .home-hero-copy h1{font-size:clamp(41px,4.5vw,70px)}
+.english-site .home-hero-trust,.english-site .home-hero-actions{justify-content:flex-start}
+.english-site .home-trust-card{align-items:flex-start;text-align:left}
+.english-site .home-trust-card h3{margin-left:0;margin-right:0}
+.english-site .waslivo-process-card{text-align:left}
+.english-site .waslivo-process-card-content{max-width:100%}
+.english-site .project-detail-heading,.english-site .project-card-body,.english-site .service-copy,.english-site .footer{text-align:left}
+.english-site .footer-social-links{direction:ltr}
+.english-site .contact-form input,.english-site .contact-form textarea,.english-site .contact-form select{text-align:left}
+.english-site .floating-whatsapp{left:auto;right:20px}
+.english-site .section-title-start{text-align:left;margin-left:0;margin-right:auto}
+@media(max-width:1100px){.english-site .header-nav a{font-size:11px}}
+@media(max-width:900px){.english-site .home-hero-copy h1{font-size:clamp(37px,7vw,56px)}}
+@media(max-width:600px){.language-switch{gap:6px;font-size:12px}.english-site .home-hero-copy h1{font-size:clamp(36px,10vw,48px)}.english-site .home-hero-trust{gap:8px 12px}.english-site .home-trust-heading h2{font-size:clamp(23px,6.5vw,28px)}.english-site .home-trust-card h3{font-size:15px}}
