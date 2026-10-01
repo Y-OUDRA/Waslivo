@@ -3,8 +3,8 @@ export const site = {
   name: 'WASLIVO',
   arabicName: 'وصليفو',
   logo: '/assets/waslivo-logo.webp',
-  phone: '+212633485489',
-  phoneDisplay: '+212 633 485 489',
+  phone: '+212773637265',
+  phoneDisplay: '+212 773 637 265',
   social: {
     instagram: 'https://www.instagram.com/waslivo_agency/',
     facebook: 'https://www.facebook.com/profile.php?id=61595063485558',
