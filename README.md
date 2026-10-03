@@ -7,7 +7,7 @@ Run npm install, then npm run dev for local development. Run npm run build and n
 - Six original concept studies, portfolio filters, individual project pages, service tabs, and enquiry form.
 - Concept projects are demonstrations, not client commissions. Product and interior images are AI-generated.
 - Navy #102A43, ivory #FAF7F0, sand #D8B47C; approved Waslivo logo.
-- WhatsApp Business: +212773637265. The form prepares a message for the visitor to review and send; no customer data is collected by the site.
+- WhatsApp Business: +212708797386. The form prepares a message for the visitor to review and send; no customer data is collected by the site.
 - Language preference is stored in the visitor's browser.
 - Fonts load from Google Fonts with system fallbacks.
 - Publication retains the existing private audience for owner review.
