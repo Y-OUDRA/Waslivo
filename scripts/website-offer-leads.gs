@@ -28,6 +28,7 @@ function doPost(event) {
     if (!sheet) throw new Error('Missing Website Leads sheet');
     const lock = LockService.getScriptLock();
     lock.waitLock(10000);
+    let isNewLead = false;
     try {
       const cache = CacheService.getScriptCache();
       if (!cache.get(requestId)) {
@@ -38,14 +39,69 @@ function doPost(event) {
           pageUrl, clean(data.referrer, 500),
         ]);
         cache.put(requestId, '1', 21600);
+        isNewLead = true;
       }
     } finally {
       lock.releaseLock();
     }
+    // Telegram must never turn an already saved lead into a failed form response.
+    if (isNewLead) notifyTelegramLead(fullName, phone, businessActivity);
     return respond(true, requestId, targetOrigin);
   } catch (error) {
     console.error(error);
     return respond(false, requestId, targetOrigin);
+  }
+}
+
+function notifyTelegramLead(fullName, phone, businessActivity) {
+  try {
+    const properties = PropertiesService.getScriptProperties();
+    const token = properties.getProperty('TELEGRAM_BOT_TOKEN');
+    const chatId = properties.getProperty('TELEGRAM_CHAT_ID');
+    if (!token || !chatId) {
+      console.warn('Telegram lead notification is not configured');
+      return false;
+    }
+    const text = [
+      '🔔 Lead جديد من صفحة تصميم المواقع',
+      'الاسم: ' + fullName,
+      'الجوال: ' + phone,
+      'النشاط: ' + businessActivity,
+    ].join('\n');
+    const response = UrlFetchApp.fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
+      method: 'post',
+      contentType: 'application/json',
+      payload: JSON.stringify({chat_id: chatId, text: text, disable_notification: false}),
+      muteHttpExceptions: true,
+      timeoutSeconds: 10,
+    });
+    if (response.getResponseCode() !== 200) {
+      console.error('Telegram lead notification failed with HTTP ' + response.getResponseCode());
+      return false;
+    }
+    return true;
+  } catch (error) {
+    // UrlFetch errors may contain the URL, so do not log the bot token.
+    console.error('Telegram lead notification failed');
+    return false;
+  }
+}
+
+function logTelegramChatIds() {
+  const token = PropertiesService.getScriptProperties().getProperty('TELEGRAM_BOT_TOKEN');
+  if (!token) throw new Error('Set TELEGRAM_BOT_TOKEN in Script Properties first');
+  const response = UrlFetchApp.fetch('https://api.telegram.org/bot' + token + '/getUpdates');
+  const updates = JSON.parse(response.getContentText()).result || [];
+  const ids = [...new Set(updates
+    .map(update => update.message && update.message.chat)
+    .filter(chat => chat && chat.type === 'private')
+    .map(chat => chat.id))];
+  console.log('Private Telegram chat IDs: ' + (ids.join(', ') || 'none; send /start to the bot and run again'));
+}
+
+function sendTelegramTest() {
+  if (!notifyTelegramLead('اختبار', '—', 'تنبيه تجريبي من وصليفو')) {
+    throw new Error('Telegram test notification failed');
   }
 }
 
