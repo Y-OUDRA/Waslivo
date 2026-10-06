@@ -1,0 +1,22 @@
+.footer{background:#061f32;color:#d3dde3}
+.footer-main{display:grid;grid-template-columns:1.3fr .75fr 1fr 1fr;gap:32px;padding:43px 0 33px}
+.footer-brand .logo{display:inline-flex;align-items:center;justify-content:center;width:128px;background:#fff;border-radius:8px}
+.footer-brand .logo img{display:block;width:112px;height:69px;object-fit:contain}
+.footer h3{color:#d9a966;font-size:13px;margin:0 0 8px}
+.footer p,.footer a:not(.button){display:block;font-size:11px;line-height:1.7;margin:2px 0}
+.footer a:not(.button):hover{color:#e4b673}
+.footer-contact .button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:9px 21px;border-radius:8px;margin-top:9px;font-size:11px;font-weight:800;white-space:nowrap}
+.footer-contact .button-gold{background:linear-gradient(105deg,#d8ae68,#b9833e);color:#fff;box-shadow:0 6px 17px #ac7b3952}
+.footer-contact .button svg{width:18px;height:18px;flex:none}
+.footer-bottom{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-top:1px solid #ffffff25;color:#b7c5cf;font-size:10px}
+.footer-bottom div{display:flex;gap:14px}
+.footer-social{margin-top:18px}
+.footer-social>span{display:block;margin-bottom:8px;color:#d9a966;font-size:13px;font-weight:800}
+.footer-social-links{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.footer .footer-social-links a:not(.button){display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:0;border:1px solid #d9a96666;border-radius:50%;background:#ffffff0a;color:#f4e8d7;transition:background .3s ease,color .3s ease,border-color .3s ease,transform .3s ease}
+.footer .footer-social-links a:not(.button):hover{background:#d9a966;border-color:#d9a966;color:#061f32;transform:translateY(-2px)}
+.footer-social-links svg{display:block;width:20px;height:20px}
+.footer a:focus-visible{outline:2px solid #edc373;outline-offset:3px}
+@media(max-width:900px){.footer-main{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.footer-main{grid-template-columns:repeat(2,1fr);gap:20px}.footer-main>div:first-child,.footer-main>div:last-child{grid-column:1/-1}.footer-bottom{flex-direction:column;gap:5px}.footer-social-links{gap:7px}}
+@media(prefers-reduced-motion:reduce){.footer .footer-social-links a:not(.button){transition:none}.footer .footer-social-links a:not(.button):hover{transform:none}}

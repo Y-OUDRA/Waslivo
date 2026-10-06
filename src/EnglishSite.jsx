@@ -150,7 +150,7 @@ function ArticlePage({ id }) {
 }
 function LegalPage({ type }) {
   const privacy = type === 'privacy'
-  return <section className="section legal-page container"><span className="eyebrow">WASLIVO</span><h1>{privacy ? 'Privacy policy' : 'Terms & conditions'}</h1>{privacy ? <><p>When you use the contact form, the site opens a WhatsApp message containing the information you entered. The message is sent only if you choose to send it in WhatsApp.</p><p>Once you open WhatsApp, the conversation is subject to that service's policies. You can contact us there with questions about your conversation data.</p></> : <><p>This site introduces WASLIVO's services. Portfolio examples are illustrative design concepts unless clearly stated otherwise.</p><p>The scope, deliverables, timeline, and final price of each project are defined in a separate proposal after discussing requirements.</p></>}<Link to="/contact" className="button button-outline">Contact us <ArrowRight size={17}/></Link></section>
+  return <section className="section legal-page container"><span className="eyebrow">WASLIVO</span><h1>{privacy ? 'Privacy policy' : 'Terms & conditions'}</h1>{privacy ? <><p>When you use the contact form, the site opens a WhatsApp message containing the information you entered. The message is sent only if you choose to send it in WhatsApp.</p><p>When you submit the website offer form, we store your name, phone number, and business activity in WASLIVO's Google Sheet so we can follow up about your request.</p><p>Once you open WhatsApp, the conversation is subject to that service's policies. You can contact us there with questions about your conversation data.</p></> : <><p>This site introduces WASLIVO's services. Portfolio examples are illustrative design concepts unless clearly stated otherwise.</p><p>The scope, deliverables, timeline, and final price of each project are defined in a separate proposal after discussing requirements.</p></>}<Link to="/contact" className="button button-outline">Contact us <ArrowRight size={17}/></Link></section>
 }
 function NotFound() {
   return <section className="not-found"><div className="container"><span>404</span><h1>Page not found</h1><p>The link may be incorrect or the page may have moved.</p><Link to="/" className="button button-gold">Back to home <ArrowRight size={17}/></Link></div></section>
@@ -180,5 +180,5 @@ export function englishMetadata(path) {
 }
 export default function EnglishSite({ path }) {
   const localPath = path.replace(/^\/en(?=\/|$)/, '') || '/'
-  return <div className="english-site" dir="ltr"><Header path={localPath}/><main><Page path={localPath}/></main><Footer/><a className="floating-whatsapp" href={whatsapp(defaultMessage)} target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp"><MessageCircle/></a></div>
+  return <div className="english-site" dir="ltr"><Header path={localPath}/><main><Page path={localPath}/></main><Footer/><a className="floating-whatsapp" href={whatsapp(defaultMessage)} target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp"><img src="/assets/whatsapp.svg" width="29" height="29" alt="" aria-hidden="true"/></a></div>
 }
