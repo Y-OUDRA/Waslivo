@@ -149,7 +149,7 @@
       if (result.success !== true) throw new Error('Submission not confirmed');
       clearTimeout(slowTimer);
       if (typeof window.fbq === 'function') window.fbq('track', 'Lead', {service: 'website_design', market: 'saudi_arabia'});
-      if (window.ttq && typeof window.ttq.track === 'function') window.ttq.track('SubmitForm', {service: 'website_design'});
+      if (window.ttq && typeof window.ttq.track === 'function') window.ttq.track('Lead', {service: 'website_design'});
       if (Array.isArray(window.dataLayer)) window.dataLayer.push({event: 'lead_form_submit', service: 'website_design', market: 'saudi_arabia'});
       sessionStorage.setItem('waslivo_website_offer_submitted', '1');
       location.assign('/website-offer/thank-you/');

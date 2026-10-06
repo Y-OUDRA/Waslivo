@@ -95,7 +95,7 @@
       sessionStorage.removeItem(pendingKey);
       sessionStorage.setItem(submittedKey, '1');
       if (typeof window.fbq === 'function') window.fbq('track', 'Lead', {service: 'website_design', market: 'saudi_arabia'});
-      if (window.ttq && typeof window.ttq.track === 'function') window.ttq.track('SubmitForm', {service: 'website_design'});
+      if (window.ttq && typeof window.ttq.track === 'function') window.ttq.track('Lead', {service: 'website_design'});
       if (Array.isArray(window.dataLayer)) window.dataLayer.push({event: 'lead_form_submit', service: 'website_design', market: 'saudi_arabia'});
       showSuccess();
     } catch {
