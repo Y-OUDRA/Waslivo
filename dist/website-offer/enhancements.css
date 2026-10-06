@@ -46,6 +46,11 @@
 .portfolio-form-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:9px 15px;border:1px solid #d5a24a;border-radius:8px;color:#e5bc70;font-size:12px;font-weight:900}
 .portfolio-form-link:hover{background:#d5a24a;color:#061f35}
 
+/* Keep the two-column list and type scale while giving each inclusion its own card. */
+.check-list{background:linear-gradient(135deg,#fff,#f7f8f7);border-color:#e5e7e4;box-shadow:0 12px 28px #061f350b}
+.check-list li{display:flex;align-items:center;min-width:0;padding-block:2px;padding-inline-end:7px;background:#f6f8f8;border:1px solid #e4e9e9;border-radius:10px;line-height:1.45}
+.check-list li::before{right:5px;top:50%;transform:translateY(-50%);width:16px;height:16px;background:#e9d4ad;color:#704b20;font-size:11px}
+
 @media(max-width:1100px){
   .header-inner{width:calc(100% - 22px);justify-content:space-between;gap:7px}
   .header-nav{display:none;position:absolute;top:calc(100% + 7px);left:0;right:0;max-height:calc(100vh - 85px);overflow:auto;padding:12px;flex-direction:column;align-items:stretch;background:#fff;box-shadow:0 18px 35px #08273f33;border-radius:11px}
@@ -65,4 +70,5 @@
   .home-portfolio .work-cta{align-items:stretch}.portfolio-form-link{width:100%}
   .floating-whatsapp{left:14px;bottom:18px;width:54px;height:54px}body.sticky-visible .floating-whatsapp{bottom:87px}
 }
+@media(max-width:700px){.check-list li{padding-inline-start:24px;padding-inline-end:5px}}
 @media(prefers-reduced-motion:reduce){.hero-copy>.eyebrow,.hero-copy>.eyebrow i{animation:none}.project-card,.floating-whatsapp{transition:none}.project-card:hover,.floating-whatsapp:hover{transform:none}}

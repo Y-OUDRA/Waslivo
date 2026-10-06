@@ -1,7 +1,7 @@
 .footer{background:#061f32;color:#d3dde3}
 .footer-main{display:grid;grid-template-columns:1.3fr .75fr 1fr 1fr;gap:32px;padding:43px 0 33px}
 .footer-brand .logo{display:inline-flex;align-items:center;justify-content:center;width:128px;background:#fff;border-radius:8px}
-.footer-brand .logo img{display:block;width:112px;height:69px;object-fit:contain}
+.footer-brand .logo img{display:block;width:112px;height:49px;object-fit:contain}
 .footer h3{color:#d9a966;font-size:13px;margin:0 0 8px}
 .footer p,.footer a:not(.button){display:block;font-size:11px;line-height:1.7;margin:2px 0}
 .footer a:not(.button):hover{color:#e4b673}
