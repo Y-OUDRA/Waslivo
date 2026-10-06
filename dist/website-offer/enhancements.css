@@ -50,6 +50,10 @@
 .check-list{background:linear-gradient(135deg,#fff,#f7f8f7);border-color:#e5e7e4;box-shadow:0 12px 28px #061f350b}
 .check-list li{display:flex;align-items:center;min-width:0;padding-block:2px;padding-inline-end:7px;background:#f6f8f8;border:1px solid #e4e9e9;border-radius:10px;line-height:1.45}
 .check-list li::before{right:5px;top:50%;transform:translateY(-50%);width:16px;height:16px;background:#e9d4ad;color:#704b20;font-size:11px}
+.form-card .primary-button.is-loading{opacity:1;cursor:progress}
+.form-card .primary-button.is-loading::after{content:"";width:17px;height:17px;border:2px solid #061f3540;border-top-color:#061f35;border-radius:50%;animation:submit-spin .7s linear infinite}
+.form-message.pending{color:#315773}
+@keyframes submit-spin{to{transform:rotate(360deg)}}
 
 @media(max-width:1100px){
   .header-inner{width:calc(100% - 22px);justify-content:space-between;gap:7px}
@@ -71,4 +75,4 @@
   .floating-whatsapp{left:14px;bottom:18px;width:54px;height:54px}body.sticky-visible .floating-whatsapp{bottom:87px}
 }
 @media(max-width:700px){.check-list li{padding-inline-start:24px;padding-inline-end:5px}}
-@media(prefers-reduced-motion:reduce){.hero-copy>.eyebrow,.hero-copy>.eyebrow i{animation:none}.project-card,.floating-whatsapp{transition:none}.project-card:hover,.floating-whatsapp:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){.hero-copy>.eyebrow,.hero-copy>.eyebrow i,.form-card .primary-button.is-loading::after{animation:none}.project-card,.floating-whatsapp{transition:none}.project-card:hover,.floating-whatsapp:hover{transform:none}}

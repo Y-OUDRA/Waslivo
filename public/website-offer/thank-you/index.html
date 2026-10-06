@@ -1,13 +1,63 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#061f35">
-  <title>تم استلام طلبك | وصليفو</title><link rel="icon" href="/assets/favicon.svg">
-  <script>if(sessionStorage.getItem('waslivo_website_offer_submitted')==='1'){sessionStorage.removeItem('waslivo_website_offer_submitted')}else{location.replace('/website-offer/')}</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#061f35">
+  <title>تم استلام طلبك | وصليفو</title>
+  <link rel="icon" href="/assets/favicon.svg">
+  <script>if(sessionStorage.getItem('waslivo_website_offer_submitted')==='1'){sessionStorage.removeItem('waslivo_website_offer_submitted')}else if(location.hostname!=='127.0.0.1'||new URLSearchParams(location.search).get('preview')!=='1'){location.replace('/website-offer/')}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#061f35;color:#fff;font-family:Cairo,Tahoma,Arial,sans-serif;display:grid;place-items:center;padding:25px}.card{width:min(100%,510px);padding:35px;background:#fff;color:#061f35;border-radius:23px;text-align:center;box-shadow:0 25px 55px #0004}.card img{width:130px;height:auto;margin:0 auto 26px}.mark{width:54px;height:54px;border-radius:50%;background:#edf5ef;color:#267150;font-size:30px;font-weight:900;display:grid;place-items:center;margin:0 auto 15px}h1{font-size:28px;line-height:1.5;margin:0 0 8px}p{color:#536779;margin:0 0 22px}a{display:inline-flex;align-items:center;justify-content:center;min-height:49px;padding:9px 22px;background:#d5a24a;color:#061f35;text-decoration:none;border-radius:9px;font-weight:900}a:focus-visible{outline:3px solid #061f35;outline-offset:3px}.site{display:block;color:#788996;font-size:12px;margin-top:22px}</style>
+  <link rel="stylesheet" href="/website-offer/styles.css">
+  <link rel="stylesheet" href="/website-offer/enhancements.css?v=20261006c">
+  <style>
+    body{min-height:100vh;background:#061f35;color:#fff}
+    .header{color:#061f35}
+    .thank-you-main{min-height:100vh;display:grid;place-items:center;padding:105px 18px 38px}
+    .thank-you-card{width:min(100%,510px);padding:35px;background:#fff;color:#061f35;border-radius:23px;text-align:center;box-shadow:0 25px 55px #0004}
+    .thank-you-card>.brand{width:130px;height:auto;margin:0 auto 26px}
+    .mark{width:54px;height:54px;border-radius:50%;background:#edf5ef;color:#267150;font-size:30px;font-weight:900;display:grid;place-items:center;margin:0 auto 15px}
+    .thank-you-card h1{font-size:28px;line-height:1.5;margin:0 0 8px}
+    .thank-you-card p{color:#536779;margin:0 0 22px}
+    .thank-you-whatsapp{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-height:49px;padding:9px 22px;background:#25d366;color:#fff;border-radius:9px;font-weight:900;box-shadow:0 7px 18px #1b9d4940}
+    .thank-you-whatsapp:hover{background:#1ebd59;color:#fff}
+    .thank-you-whatsapp img{width:22px;height:22px}
+    .site{display:block;color:#788996;font-size:12px;margin-top:22px}
+    @media(max-width:600px){.thank-you-card{padding:30px 23px}.thank-you-card h1{font-size:25px}.thank-you-main{padding-top:92px}}
+  </style>
 </head>
-<body><main class="card"><img src="/assets/waslivo-logo.webp" alt="وصليفو — WASLIVO"><div class="mark" aria-hidden="true">✓</div><h1>تم استلام طلبك</h1><p>شكراً لك! سنتواصل معك عبر واتساب لمناقشة تفاصيل إنشاء موقعك والخطوة التالية.</p><a href="https://wa.me/212708797386?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%88%D8%B5%D9%84%D9%8A%D9%81%D9%88%D8%8C%20%D9%82%D8%AF%D9%85%D8%AA%20%D8%B7%D9%84%D8%A8%20%D9%85%D9%88%D9%82%D8%B9%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D9%85%D8%AA%D8%A7%D8%A8%D8%B9%D8%A9" target="_blank" rel="noopener noreferrer">تواصل معنا عبر واتساب</a><span class="site">waslivo.agency</span></main></body>
+<body>
+  <a class="skip-link" href="#main">انتقل إلى المحتوى</a>
+  <header class="header" id="site-header">
+    <div class="header-inner">
+      <a class="header-logo" href="/" aria-label="وصليفو - الصفحة الرئيسية"><img src="/assets/waslivo-logo.webp" width="112" height="49" alt="وصليفو | WASLIVO"></a>
+      <nav class="header-nav" id="primary-nav" aria-label="التنقل الرئيسي">
+        <a href="/">الرئيسية</a><a href="/services">خدماتنا</a><a href="/portfolio">أعمالنا</a><a href="/packages">باقاتنا</a><a href="/about">من نحن</a><a href="/#process">كيف نعمل</a><a href="/#faq">الأسئلة الشائعة</a><a href="/blog">مقالات</a><a href="/contact">تواصل معنا</a>
+        <a class="drawer-wa" href="https://wa.me/212708797386" target="_blank" rel="noopener noreferrer">تواصل معنا عبر واتساب</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="اللغة" dir="ltr"><a href="/en/services/websites" lang="en" aria-label="Switch to English">EN</a><span class="language-divider" aria-hidden="true">|</span><a href="/website-offer/" lang="ar" class="active" aria-current="page" aria-label="العربية، اللغة الحالية">AR</a></div>
+      <a class="header-wa" href="https://wa.me/212708797386" target="_blank" rel="noopener noreferrer">تواصل معنا عبر واتساب</a>
+      <button class="nav-toggle" type="button" aria-label="فتح القائمة" aria-expanded="false" aria-controls="primary-nav"><svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    </div>
+  </header>
+  <main class="thank-you-main" id="main"><div class="thank-you-card">
+    <img class="brand" src="/assets/waslivo-logo.webp" alt="وصليفو — WASLIVO">
+    <div class="mark" aria-hidden="true">✓</div>
+    <h1>تم استلام طلبك</h1>
+    <p>شكراً لك! سنتواصل معك عبر واتساب لمناقشة تفاصيل إنشاء موقعك والخطوة التالية.</p>
+    <a class="thank-you-whatsapp" href="https://wa.me/212708797386?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%88%D8%B5%D9%84%D9%8A%D9%81%D9%88%D8%8C%20%D9%82%D8%AF%D9%85%D8%AA%20%D8%B7%D9%84%D8%A8%20%D9%85%D9%88%D9%82%D8%B9%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D9%85%D8%AA%D8%A7%D8%A8%D8%B9%D8%A9" target="_blank" rel="noopener noreferrer"><img src="/website-offer/whatsapp.svg" width="22" height="22" alt="" aria-hidden="true">تواصل معنا عبر واتساب</a>
+    <span class="site">waslivo.agency</span>
+  </div></main>
+  <script>
+    const header=document.getElementById('site-header'),nav=document.getElementById('primary-nav'),toggle=header.querySelector('.nav-toggle');
+    const closeNav=()=>{nav.classList.remove('header-nav-open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','فتح القائمة')};
+    toggle.addEventListener('click',()=>{const opening=toggle.getAttribute('aria-expanded')!=='true';nav.classList.toggle('header-nav-open',opening);toggle.setAttribute('aria-expanded',String(opening));toggle.setAttribute('aria-label',opening?'إغلاق القائمة':'فتح القائمة')});
+    nav.addEventListener('click',event=>{if(event.target.closest('a'))closeNav()});
+    document.addEventListener('click',event=>{if(!header.contains(event.target))closeNav()});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape')closeNav()});
+  </script>
+</body>
 </html>

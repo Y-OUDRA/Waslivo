@@ -5,6 +5,7 @@
   const form = document.getElementById('website-lead-form');
   const message = document.getElementById('form-message');
   const submitButton = form.querySelector('button[type="submit"]');
+  const submitLabel = submitButton.innerHTML;
   const formCard = document.getElementById('lead-form');
   const sticky = document.getElementById('sticky-cta');
   const header = document.getElementById('site-header');
@@ -122,19 +123,27 @@
       website: '',
     };
     submitButton.disabled = true;
+    submitButton.classList.add('is-loading');
+    form.setAttribute('aria-busy', 'true');
     submitButton.textContent = 'جاري إرسال طلبك...';
+    setMessage('جاري حفظ طلبك، انتظر لحظات.', 'pending');
+    const slowTimer = setTimeout(() => setMessage('ما زلنا نؤكد وصول طلبك، شكراً على انتظارك.', 'pending'), 7000);
     try {
       const result = await submitToSheet(payload);
       if (result.success !== true) throw new Error('Submission not confirmed');
+      clearTimeout(slowTimer);
       if (typeof window.fbq === 'function') window.fbq('track', 'Lead', {service: 'website_design', market: 'saudi_arabia'});
       if (window.ttq && typeof window.ttq.track === 'function') window.ttq.track('SubmitForm', {service: 'website_design'});
       if (Array.isArray(window.dataLayer)) window.dataLayer.push({event: 'lead_form_submit', service: 'website_design', market: 'saudi_arabia'});
       sessionStorage.setItem('waslivo_website_offer_submitted', '1');
       location.assign('/website-offer/thank-you/');
     } catch {
+      clearTimeout(slowTimer);
       setMessage('صار خطأ بسيط، حاول مرة ثانية.', 'error');
       submitButton.disabled = false;
-      submitButton.innerHTML = 'احصل على عرض مجاني لمشروعك <span aria-hidden="true">↗</span>';
+      submitButton.classList.remove('is-loading');
+      form.removeAttribute('aria-busy');
+      submitButton.innerHTML = submitLabel;
     }
   });
 
