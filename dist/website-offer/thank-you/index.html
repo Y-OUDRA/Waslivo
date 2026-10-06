@@ -7,13 +7,14 @@
   <meta name="theme-color" content="#061f35">
   <title>تم استلام طلبك | وصليفو</title>
   <link rel="icon" href="/assets/favicon.svg">
-  <script>if(!sessionStorage.getItem('waslivo_website_offer_pending')){if(sessionStorage.getItem('waslivo_website_offer_submitted')==='1'){sessionStorage.removeItem('waslivo_website_offer_submitted');document.documentElement.dataset.leadConfirmed='true'}else if(location.hostname!=='127.0.0.1'||new URLSearchParams(location.search).get('preview')!=='1'){location.replace('/website-offer/')}}</script>
+  <script>if(!sessionStorage.getItem('waslivo_website_offer_pending')){if(sessionStorage.getItem('waslivo_website_offer_submitted')==='1'){document.documentElement.dataset.leadConfirmed='true'}else if(location.hostname!=='127.0.0.1'||new URLSearchParams(location.search).get('preview')!=='1'){location.replace('/website-offer/')}}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/website-offer/styles.css">
   <link rel="stylesheet" href="/website-offer/enhancements.css?v=20261006c">
   <script defer src="/website-offer/tiktok-pixel.js?v=20261006a"></script>
+  <script defer src="/language-preference.js"></script>
   <script defer src="/website-offer/thank-you/confirm.js?v=20261006d"></script>
   <style>
     body{min-height:100vh;background:#061f35;color:#fff}
@@ -27,10 +28,12 @@
     @keyframes confirm-spin{to{transform:rotate(360deg)}}
     .thank-you-card h1{font-size:28px;line-height:1.5;margin:0 0 8px}
     .thank-you-card p{color:#536779;margin:0 0 22px}
-    .thank-you-whatsapp{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-height:49px;padding:9px 22px;background:#25d366;color:#fff;border-radius:9px;font-weight:900;box-shadow:0 7px 18px #1b9d4940}
-    .thank-you-whatsapp:hover{background:#1ebd59;color:#fff}
-    .thank-you-whatsapp img{width:22px;height:22px}
-    .thank-you-whatsapp[hidden]{display:none}
+    .thank-you-actions{display:flex;flex-direction:column;align-items:center;gap:13px}
+    .thank-you-actions[hidden]{display:none}
+    .thank-you-portfolio{display:inline-flex;align-items:center;justify-content:center;min-height:49px;padding:9px 28px;background:#d5a24a;color:#061f35;border-radius:9px;font-weight:900;box-shadow:0 7px 18px #9e712e40;text-decoration:none}
+    .thank-you-portfolio:hover{background:#e7b65f;color:#061f35}
+    .thank-you-home{color:#315572;font-weight:800;text-underline-offset:4px}
+    .thank-you-home:hover{color:#061f35}
     .retry-button{min-height:45px;padding:8px 20px;border:0;border-radius:9px;background:#d5a24a;color:#061f35;font:inherit;font-weight:900;cursor:pointer}
     .retry-button[hidden]{display:none}
     @media(max-width:600px){.thank-you-card{padding:30px 23px}.thank-you-card h1{font-size:25px}.thank-you-main{padding-top:92px}}
@@ -46,7 +49,7 @@
         <a href="/">الرئيسية</a><a href="/services">خدماتنا</a><a href="/portfolio">أعمالنا</a><a href="/packages">باقاتنا</a><a href="/about">من نحن</a><a href="/#process">كيف نعمل</a><a href="/#faq">الأسئلة الشائعة</a><a href="/blog">مقالات</a><a href="/contact">تواصل معنا</a>
         <a class="drawer-wa" href="https://wa.me/212708797386" target="_blank" rel="noopener noreferrer">تواصل معنا عبر واتساب</a>
       </nav>
-      <div class="language-switch" role="group" aria-label="اللغة" dir="ltr"><a href="/en/services/websites" lang="en" aria-label="Switch to English">EN</a><span class="language-divider" aria-hidden="true">|</span><a href="/website-offer/" lang="ar" class="active" aria-current="page" aria-label="العربية، اللغة الحالية">AR</a></div>
+      <div class="language-switch" role="group" aria-label="Language / Langue / اللغة" dir="ltr"><a href="/en/website-offer/thank-you/" lang="en">EN</a><span class="language-divider" aria-hidden="true">|</span><a href="/website-offer/thank-you/" lang="ar" class="active" aria-current="page">AR</a><span class="language-divider" aria-hidden="true">|</span><a href="/fr/website-offer/thank-you/" lang="fr">FR</a></div>
       <a class="header-wa" href="https://wa.me/212708797386" target="_blank" rel="noopener noreferrer">تواصل معنا عبر واتساب</a>
       <button class="nav-toggle" type="button" aria-label="فتح القائمة" aria-expanded="false" aria-controls="primary-nav"><svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
     </div>
@@ -56,8 +59,9 @@
     <div class="mark pending" id="status-mark" aria-hidden="true"></div>
     <div role="status" aria-live="polite"><h1 id="status-heading">جاري تأكيد طلبك</h1><p id="status-description">نحفظ بياناتك الآن. ستظهر رسالة التأكيد بعد وصول الطلب.</p></div>
     <button class="retry-button" id="retry-button" type="button" hidden>إعادة المحاولة</button>
-    <a class="thank-you-whatsapp" id="thank-you-whatsapp" hidden href="https://wa.me/212708797386?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%88%D8%B5%D9%84%D9%8A%D9%81%D9%88%D8%8C%20%D9%82%D8%AF%D9%85%D8%AA%20%D8%B7%D9%84%D8%A8%20%D9%85%D9%88%D9%82%D8%B9%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D9%85%D8%AA%D8%A7%D8%A8%D8%B9%D8%A9" target="_blank" rel="noopener noreferrer"><img src="/website-offer/whatsapp.svg" width="22" height="22" alt="" aria-hidden="true">تواصل معنا عبر واتساب</a>
+    <div class="thank-you-actions" id="thank-you-actions" hidden><a class="thank-you-portfolio" href="/portfolio">شاهد أعمالنا</a><a class="thank-you-home" href="/">عودة للرئيسية</a></div>
   </div></main>
+  <a class="floating-whatsapp" href="https://wa.me/212708797386" target="_blank" rel="noopener noreferrer" aria-label="تواصل معنا عبر واتساب"><img src="/assets/whatsapp.svg" width="29" height="29" alt="" aria-hidden="true"></a>
   <script>
     const header=document.getElementById('site-header'),nav=document.getElementById('primary-nav'),toggle=header.querySelector('.nav-toggle');
     const closeNav=()=>{nav.classList.remove('header-nav-open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','فتح القائمة')};

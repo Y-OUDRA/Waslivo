@@ -2,6 +2,13 @@
   'use strict';
 
   const leadEndpoint = 'https://script.google.com/macros/s/AKfycby02V_kAjWMqVcmCfQNqFEBv17g2yudAUU06c1W0jQ6q6el5eFcHIMbhUeMQAKmCWhJIw/exec';
+  const lang = ['en', 'fr'].includes(document.documentElement.lang) ? document.documentElement.lang : 'ar';
+  const copy = {
+    ar: {open:'فتح القائمة', close:'إغلاق القائمة', name:'اكتب اسمك الكامل.', phone:'اكتب رقم جوال صحيحاً، مثل 0551234567.', activity:'اكتب نوع نشاطك.', unavailable:'استقبال الطلبات غير متاح مؤقتاً. حاول لاحقاً.', sending:'جاري إرسال طلبك...', saving:'جاري حفظ طلبك، انتظر لحظات.', waiting:'ما زلنا نؤكد وصول طلبك، شكراً على انتظارك.', error:'صار خطأ بسيط، حاول مرة ثانية.', frame:'إرسال طلب الموقع'},
+    en: {open:'Open menu', close:'Close menu', name:'Enter your full name.', phone:'Enter a valid phone number, such as 0551234567.', activity:'Tell us about your business.', unavailable:'Requests are temporarily unavailable. Please try again later.', sending:'Sending your request...', saving:'Saving your request. Please wait.', waiting:'We are still confirming your request. Thank you for waiting.', error:'Something went wrong. Please try again.', frame:'Send website request'},
+    fr: {open:'Ouvrir le menu', close:'Fermer le menu', name:'Indiquez votre nom complet.', phone:'Indiquez un numéro valide, par exemple 0551234567.', activity:'Décrivez votre activité.', unavailable:'Les demandes sont temporairement indisponibles. Réessayez plus tard.', sending:'Envoi de votre demande...', saving:'Enregistrement de votre demande. Veuillez patienter.', waiting:'Nous vérifions toujours votre demande. Merci de patienter.', error:'Une erreur est survenue. Veuillez réessayer.', frame:'Envoyer la demande de site'}
+  }[lang];
+  const thankYouPath = `${lang === 'ar' ? '' : `/${lang}`}/website-offer/thank-you/`;
   const form = document.getElementById('website-lead-form');
   const message = document.getElementById('form-message');
   const submitButton = form.querySelector('button[type="submit"]');
@@ -16,13 +23,13 @@
   const closeNav = () => {
     nav.classList.remove('header-nav-open');
     navToggle.setAttribute('aria-expanded', 'false');
-    navToggle.setAttribute('aria-label', 'فتح القائمة');
+    navToggle.setAttribute('aria-label', copy.open);
   };
   navToggle.addEventListener('click', () => {
     const opening = navToggle.getAttribute('aria-expanded') !== 'true';
     nav.classList.toggle('header-nav-open', opening);
     navToggle.setAttribute('aria-expanded', String(opening));
-    navToggle.setAttribute('aria-label', opening ? 'إغلاق القائمة' : 'فتح القائمة');
+    navToggle.setAttribute('aria-label', opening ? copy.close : copy.open);
   });
   nav.addEventListener('click', event => { if (event.target.closest('a')) closeNav(); });
   document.addEventListener('keydown', event => { if (event.key === 'Escape') closeNav(); });
@@ -95,14 +102,14 @@
     const fullName = fields.fullName.input.value.trim().replace(/\s+/g, ' ');
     const phone = normalizePhone(fields.phone.input.value);
     const businessActivity = fields.businessActivity.input.value.trim().replace(/\s+/g, ' ');
-    setFieldError('fullName', fullName.length < 2 ? 'اكتب اسمك الكامل.' : '');
-    setFieldError('phone', !phone ? 'اكتب رقم جوال صحيحاً، مثل 0551234567.' : '');
-    setFieldError('businessActivity', businessActivity.length < 2 ? 'اكتب نوع نشاطك.' : '');
+    setFieldError('fullName', fullName.length < 2 ? copy.name : '');
+    setFieldError('phone', !phone ? copy.phone : '');
+    setFieldError('businessActivity', businessActivity.length < 2 ? copy.activity : '');
     const invalid = Object.values(fields).find(field => field.error.textContent);
     if (invalid) { invalid.input.focus(); return; }
     if (form.elements.website.value) return;
     if (!leadEndpoint) {
-      setMessage('استقبال الطلبات غير متاح مؤقتاً. حاول لاحقاً.', 'error');
+      setMessage(copy.unavailable, 'error');
       return;
     }
 
@@ -125,7 +132,7 @@
     submitButton.disabled = true;
     submitButton.classList.add('is-loading');
     form.setAttribute('aria-busy', 'true');
-    submitButton.textContent = 'جاري إرسال طلبك...';
+    submitButton.textContent = copy.sending;
     let pendingSaved = false;
     try {
       sessionStorage.removeItem('waslivo_website_offer_submitted');
@@ -138,12 +145,12 @@
           navigator.sendBeacon(leadEndpoint, new URLSearchParams({payload: JSON.stringify(payload)}));
         }
       } catch { /* The thank-you page will submit and verify the same request. */ }
-      location.assign('/website-offer/thank-you/');
+      location.assign(thankYouPath);
       return;
     }
 
-    setMessage('جاري حفظ طلبك، انتظر لحظات.', 'pending');
-    const slowTimer = setTimeout(() => setMessage('ما زلنا نؤكد وصول طلبك، شكراً على انتظارك.', 'pending'), 7000);
+    setMessage(copy.saving, 'pending');
+    const slowTimer = setTimeout(() => setMessage(copy.waiting, 'pending'), 7000);
     try {
       const result = await submitToSheet(payload);
       if (result.success !== true) throw new Error('Submission not confirmed');
@@ -152,10 +159,10 @@
       if (window.ttq && typeof window.ttq.track === 'function') window.ttq.track('Lead', {service: 'website_design'});
       if (Array.isArray(window.dataLayer)) window.dataLayer.push({event: 'lead_form_submit', service: 'website_design', market: 'saudi_arabia'});
       sessionStorage.setItem('waslivo_website_offer_submitted', '1');
-      location.assign('/website-offer/thank-you/');
+      location.assign(thankYouPath);
     } catch {
       clearTimeout(slowTimer);
-      setMessage('صار خطأ بسيط، حاول مرة ثانية.', 'error');
+      setMessage(copy.error, 'error');
       submitButton.disabled = false;
       submitButton.classList.remove('is-loading');
       form.removeAttribute('aria-busy');
@@ -168,7 +175,7 @@
       const frame = document.createElement('iframe');
       const frameName = `waslivo-lead-${payload.requestId}`;
       frame.name = frameName;
-      frame.title = 'إرسال طلب الموقع';
+      frame.title = copy.frame;
       frame.hidden = true;
       document.body.append(frame);
       const postForm = document.createElement('form');

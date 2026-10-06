@@ -2,44 +2,50 @@
   'use strict';
 
   const leadEndpoint = 'https://script.google.com/macros/s/AKfycby02V_kAjWMqVcmCfQNqFEBv17g2yudAUU06c1W0jQ6q6el5eFcHIMbhUeMQAKmCWhJIw/exec';
+  const lang = ['en', 'fr'].includes(document.documentElement.lang) ? document.documentElement.lang : 'ar';
+  const copy = {
+    ar: {success:'تم استلام طلبك', successDetail:'شكراً لك! سنتواصل معك عبر واتساب لمناقشة تفاصيل إنشاء موقعك والخطوة التالية.', error:'تعذّر تأكيد طلبك', errorDetail:'لم نتأكد من حفظ بياناتك. اضغط إعادة المحاولة، أو تواصل معنا عبر واتساب.', pending:'جاري تأكيد طلبك', pendingDetail:'نحفظ بياناتك الآن. ستظهر رسالة التأكيد بعد وصول الطلب.', waiting:'ما زلنا نؤكد وصول طلبك، شكراً على انتظارك.', frame:'تأكيد طلب الموقع'},
+    en: {success:'We received your request', successDetail:'Thank you! We will contact you on WhatsApp to discuss your website and the next steps.', error:'We could not confirm your request', errorDetail:'We could not verify that your details were saved. Try again or contact us on WhatsApp.', pending:'Confirming your request', pendingDetail:'We are saving your details. Confirmation will appear when your request arrives.', waiting:'We are still confirming your request. Thank you for waiting.', frame:'Confirm website request'},
+    fr: {success:'Nous avons reçu votre demande', successDetail:'Merci ! Nous vous contacterons sur WhatsApp pour discuter de votre site et des prochaines étapes.', error:'Impossible de confirmer votre demande', errorDetail:'Nous n’avons pas pu vérifier l’enregistrement de vos données. Réessayez ou contactez-nous sur WhatsApp.', pending:'Confirmation de votre demande', pendingDetail:'Nous enregistrons vos données. La confirmation apparaîtra dès réception de votre demande.', waiting:'Nous vérifions toujours votre demande. Merci de patienter.', frame:'Confirmer la demande de site'}
+  }[lang];
   const pendingKey = 'waslivo_website_offer_pending';
   const submittedKey = 'waslivo_website_offer_submitted';
   const mark = document.getElementById('status-mark');
   const heading = document.getElementById('status-heading');
   const description = document.getElementById('status-description');
   const retryButton = document.getElementById('retry-button');
-  const whatsappButton = document.getElementById('thank-you-whatsapp');
+  const successActions = document.getElementById('thank-you-actions');
   let sending = false;
 
   const showSuccess = () => {
     mark.className = 'mark';
     mark.textContent = '✓';
-    heading.textContent = 'تم استلام طلبك';
-    description.textContent = 'شكراً لك! سنتواصل معك عبر واتساب لمناقشة تفاصيل إنشاء موقعك والخطوة التالية.';
+    heading.textContent = copy.success;
+    description.textContent = copy.successDetail;
     retryButton.hidden = true;
-    whatsappButton.hidden = false;
+    successActions.hidden = false;
   };
   const showError = () => {
     mark.className = 'mark error';
     mark.textContent = '!';
-    heading.textContent = 'تعذّر تأكيد طلبك';
-    description.textContent = 'لم نتأكد من حفظ بياناتك. اضغط إعادة المحاولة، أو تواصل معنا عبر واتساب.';
+    heading.textContent = copy.error;
+    description.textContent = copy.errorDetail;
     retryButton.hidden = false;
-    whatsappButton.hidden = false;
+    successActions.hidden = true;
   };
   const showPending = () => {
     mark.className = 'mark pending';
     mark.textContent = '';
-    heading.textContent = 'جاري تأكيد طلبك';
-    description.textContent = 'نحفظ بياناتك الآن. ستظهر رسالة التأكيد بعد وصول الطلب.';
+    heading.textContent = copy.pending;
+    description.textContent = copy.pendingDetail;
     retryButton.hidden = true;
-    whatsappButton.hidden = true;
+    successActions.hidden = true;
   };
 
   const submitToSheet = payload => new Promise((resolve, reject) => {
     const frame = document.createElement('iframe');
     frame.name = `waslivo-lead-${payload.requestId}`;
-    frame.title = 'تأكيد طلب الموقع';
+    frame.title = copy.frame;
     frame.hidden = true;
     document.body.append(frame);
     const postForm = document.createElement('form');
@@ -87,7 +93,7 @@
     sending = true;
     showPending();
     const slowTimer = setTimeout(() => {
-      description.textContent = 'ما زلنا نؤكد وصول طلبك، شكراً على انتظارك.';
+      description.textContent = copy.waiting;
     }, 7000);
     try {
       const result = await submitToSheet(payload);

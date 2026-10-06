@@ -2,70 +2,104 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://waslivo.agency/</loc></url>
   <url><loc>https://waslivo.agency/en</loc></url>
+  <url><loc>https://waslivo.agency/fr</loc></url>
   <url><loc>https://waslivo.agency/services</loc></url>
   <url><loc>https://waslivo.agency/en/services</loc></url>
+  <url><loc>https://waslivo.agency/fr/services</loc></url>
   <url><loc>https://waslivo.agency/portfolio</loc></url>
   <url><loc>https://waslivo.agency/en/portfolio</loc></url>
+  <url><loc>https://waslivo.agency/fr/portfolio</loc></url>
   <url><loc>https://waslivo.agency/about</loc></url>
   <url><loc>https://waslivo.agency/en/about</loc></url>
+  <url><loc>https://waslivo.agency/fr/about</loc></url>
   <url><loc>https://waslivo.agency/packages</loc></url>
   <url><loc>https://waslivo.agency/en/packages</loc></url>
+  <url><loc>https://waslivo.agency/fr/packages</loc></url>
   <url><loc>https://waslivo.agency/contact</loc></url>
   <url><loc>https://waslivo.agency/en/contact</loc></url>
+  <url><loc>https://waslivo.agency/fr/contact</loc></url>
   <url><loc>https://waslivo.agency/blog</loc></url>
   <url><loc>https://waslivo.agency/en/blog</loc></url>
+  <url><loc>https://waslivo.agency/fr/blog</loc></url>
   <url><loc>https://waslivo.agency/privacy</loc></url>
   <url><loc>https://waslivo.agency/en/privacy</loc></url>
+  <url><loc>https://waslivo.agency/fr/privacy</loc></url>
   <url><loc>https://waslivo.agency/terms</loc></url>
   <url><loc>https://waslivo.agency/en/terms</loc></url>
+  <url><loc>https://waslivo.agency/fr/terms</loc></url>
   <url><loc>https://waslivo.agency/services/websites</loc></url>
   <url><loc>https://waslivo.agency/en/services/websites</loc></url>
+  <url><loc>https://waslivo.agency/fr/services/websites</loc></url>
   <url><loc>https://waslivo.agency/services/development</loc></url>
   <url><loc>https://waslivo.agency/en/services/development</loc></url>
+  <url><loc>https://waslivo.agency/fr/services/development</loc></url>
   <url><loc>https://waslivo.agency/services/commerce</loc></url>
   <url><loc>https://waslivo.agency/en/services/commerce</loc></url>
+  <url><loc>https://waslivo.agency/fr/services/commerce</loc></url>
   <url><loc>https://waslivo.agency/services/apps</loc></url>
   <url><loc>https://waslivo.agency/en/services/apps</loc></url>
+  <url><loc>https://waslivo.agency/fr/services/apps</loc></url>
   <url><loc>https://waslivo.agency/services/logos</loc></url>
   <url><loc>https://waslivo.agency/en/services/logos</loc></url>
+  <url><loc>https://waslivo.agency/fr/services/logos</loc></url>
   <url><loc>https://waslivo.agency/services/identity</loc></url>
   <url><loc>https://waslivo.agency/en/services/identity</loc></url>
+  <url><loc>https://waslivo.agency/fr/services/identity</loc></url>
   <url><loc>https://waslivo.agency/services/social</loc></url>
   <url><loc>https://waslivo.agency/en/services/social</loc></url>
+  <url><loc>https://waslivo.agency/fr/services/social</loc></url>
   <url><loc>https://waslivo.agency/portfolio/automotive</loc></url>
   <url><loc>https://waslivo.agency/en/portfolio/automotive</loc></url>
+  <url><loc>https://waslivo.agency/fr/portfolio/automotive</loc></url>
   <url><loc>https://waslivo.agency/portfolio/education</loc></url>
   <url><loc>https://waslivo.agency/en/portfolio/education</loc></url>
+  <url><loc>https://waslivo.agency/fr/portfolio/education</loc></url>
   <url><loc>https://waslivo.agency/portfolio/ecommerce</loc></url>
   <url><loc>https://waslivo.agency/en/portfolio/ecommerce</loc></url>
+  <url><loc>https://waslivo.agency/fr/portfolio/ecommerce</loc></url>
   <url><loc>https://waslivo.agency/portfolio/restaurant</loc></url>
   <url><loc>https://waslivo.agency/en/portfolio/restaurant</loc></url>
+  <url><loc>https://waslivo.agency/fr/portfolio/restaurant</loc></url>
   <url><loc>https://waslivo.agency/portfolio/dental</loc></url>
   <url><loc>https://waslivo.agency/en/portfolio/dental</loc></url>
+  <url><loc>https://waslivo.agency/fr/portfolio/dental</loc></url>
   <url><loc>https://waslivo.agency/portfolio/property</loc></url>
   <url><loc>https://waslivo.agency/en/portfolio/property</loc></url>
+  <url><loc>https://waslivo.agency/fr/portfolio/property</loc></url>
   <url><loc>https://waslivo.agency/portfolio/facilities-services</loc></url>
   <url><loc>https://waslivo.agency/en/portfolio/facilities-services</loc></url>
+  <url><loc>https://waslivo.agency/fr/portfolio/facilities-services</loc></url>
   <url><loc>https://waslivo.agency/portfolio/beauty-store</loc></url>
   <url><loc>https://waslivo.agency/en/portfolio/beauty-store</loc></url>
+  <url><loc>https://waslivo.agency/fr/portfolio/beauty-store</loc></url>
   <url><loc>https://waslivo.agency/portfolio/interior-design</loc></url>
   <url><loc>https://waslivo.agency/en/portfolio/interior-design</loc></url>
+  <url><loc>https://waslivo.agency/fr/portfolio/interior-design</loc></url>
   <url><loc>https://waslivo.agency/portfolio/resort-hotel</loc></url>
   <url><loc>https://waslivo.agency/en/portfolio/resort-hotel</loc></url>
+  <url><loc>https://waslivo.agency/fr/portfolio/resort-hotel</loc></url>
   <url><loc>https://waslivo.agency/blog/website-brief</loc></url>
   <url><loc>https://waslivo.agency/en/blog/website-brief</loc></url>
+  <url><loc>https://waslivo.agency/fr/blog/website-brief</loc></url>
   <url><loc>https://waslivo.agency/blog/brand-site</loc></url>
   <url><loc>https://waslivo.agency/en/blog/brand-site</loc></url>
+  <url><loc>https://waslivo.agency/fr/blog/brand-site</loc></url>
   <url><loc>https://waslivo.agency/blog/mobile-first</loc></url>
   <url><loc>https://waslivo.agency/en/blog/mobile-first</loc></url>
+  <url><loc>https://waslivo.agency/fr/blog/mobile-first</loc></url>
   <url><loc>https://waslivo.agency/sa</loc></url>
   <url><loc>https://waslivo.agency/en/sa</loc></url>
+  <url><loc>https://waslivo.agency/fr/sa</loc></url>
   <url><loc>https://waslivo.agency/ae</loc></url>
   <url><loc>https://waslivo.agency/en/ae</loc></url>
+  <url><loc>https://waslivo.agency/fr/ae</loc></url>
   <url><loc>https://waslivo.agency/kw</loc></url>
   <url><loc>https://waslivo.agency/en/kw</loc></url>
+  <url><loc>https://waslivo.agency/fr/kw</loc></url>
   <url><loc>https://waslivo.agency/qa</loc></url>
   <url><loc>https://waslivo.agency/en/qa</loc></url>
+  <url><loc>https://waslivo.agency/fr/qa</loc></url>
   <url><loc>https://waslivo.agency/ma</loc></url>
   <url><loc>https://waslivo.agency/en/ma</loc></url>
+  <url><loc>https://waslivo.agency/fr/ma</loc></url>
 </urlset>

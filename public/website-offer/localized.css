@@ -1,0 +1,22 @@
+html[dir="ltr"] .hero-copy,
+html[dir="ltr"] .form-card,
+html[dir="ltr"] .section,
+html[dir="ltr"] .home-portfolio,
+html[dir="ltr"] .final-section,
+html[dir="ltr"] .footer { text-align: left; }
+html[dir="ltr"] .field label,
+html[dir="ltr"] .field input { text-align: left; }
+html[dir="ltr"] .check-list li { text-align: left; }
+html[dir="ltr"] .faq-list details { text-align: left; }
+html[dir="ltr"] .language-switch { flex-shrink: 0; }
+html[dir="ltr"] .header-nav { flex-wrap: wrap; }
+html[dir="ltr"] .form-assurance,
+html[dir="ltr"] .form-message { text-align: center; }
+@media (max-width: 700px) {
+  html[dir="ltr"] .hero-copy,
+  html[dir="ltr"] .form-card,
+  html[dir="ltr"] .section,
+  html[dir="ltr"] .home-portfolio,
+  html[dir="ltr"] .final-section,
+  html[dir="ltr"] .footer { text-align: left; }
+}

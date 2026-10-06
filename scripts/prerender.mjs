@@ -22,6 +22,12 @@ try {
     vite.ssrLoadModule('/src/seo-data.js'),
   ])
   const seoPages = indexablePaths.map(pathname => getSeo(pathname))
+  const arabicRoutes = seoPages.filter(page => page.lang === 'ar').map(page => page.path === '/' ? '/' : `${page.path}*`)
+  const routes = JSON.stringify({ version: 1, include: [...arabicRoutes, '/website-offer/', '/tiktok-ads/'], exclude: [] }, null, 2)
+  await Promise.all([
+    writeFile(path.join(root, 'public', '_routes.json'), routes),
+    writeFile(path.join(dist, '_routes.json'), routes),
+  ])
   if (seoPages.some(page => !page)) throw new Error('The SEO route registry includes a page without metadata')
   if (new Set(seoPages.map(page => page.path)).size !== seoPages.length) throw new Error('Duplicate SEO routes')
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${seoPages.map(page => `  <url><loc>${escapeHtml(page.url)}</loc></url>`).join('\n')}\n</urlset>\n`
@@ -54,13 +60,14 @@ try {
       `<meta name="twitter:description" content="${escapeHtml(seo.description)}"/>`,
       `<meta name="twitter:image" content="${escapeHtml(seo.image)}"/>`,
       '<link rel="icon" href="/assets/favicon.svg"/>',
+      '<script defer src="/language-preference.js"></script>',
       '<link rel="preconnect" href="https://fonts.googleapis.com"/>',
       '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>',
       '<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>',
       `<script id="waslivo-structured-data" type="application/ld+json">${jsonLd(getStructuredData(seo))}</script>`,
       builtAssets,
     ].join('\n')
-    const dir = seo.lang === 'en' ? 'ltr' : 'rtl'
+    const dir = seo.lang === 'ar' ? 'rtl' : 'ltr'
     const html = `<!doctype html><html lang="${seo.lang}" dir="${dir}"><head>${head}</head><body><div id="root">${markup}</div></body></html>`
     if (seo.path === '/') {
       await writeFile(path.join(dist, 'index.html'), html)
@@ -73,7 +80,7 @@ try {
   }
   const notFound = renderToString(React.createElement(App, { initialPath: '/404' }))
   await writeFile(path.join(dist, '404.html'), `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="robots" content="noindex,follow"/><title>الصفحة غير موجودة | وصليفو</title><link rel="icon" href="/assets/favicon.svg"/>${builtAssets}</head><body><div id="root">${notFound}</div></body></html>`)
-  console.log(`Prerendered ${seoPages.length} Arabic and English pages.`)
+  console.log(`Prerendered ${seoPages.length} Arabic, English, and French pages.`)
 } finally {
   await vite.close()
 }

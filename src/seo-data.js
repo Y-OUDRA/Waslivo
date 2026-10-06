@@ -1,5 +1,6 @@
 import { articles, projects, services } from './v2-data'
 import { enArticles, enProjects, enServices } from './english-data'
+import { frArticles, frProjects, frServices } from './french-data'
 import { marketCodes, markets } from './market-data'
 import { site } from './site-config'
 
@@ -29,6 +30,17 @@ const enPages = {
   '/privacy': ['Privacy Policy | WASLIVO', 'Learn how the WASLIVO contact form prepares a WhatsApp message for you to review before sending.'],
   '/terms': ['Terms & Conditions | WASLIVO', 'Read the WASLIVO website terms and how project scope, deliverables, timing, and pricing are agreed.'],
 }
+const frPages = {
+  '/': ['Création de sites web et développement | WASLIVO', 'WASLIVO conçoit des sites web, boutiques en ligne et expériences numériques adaptés à votre activité et à tous les écrans.'],
+  '/services': ['Création de sites, développement et identité | WASLIVO', 'Découvrez nos services de création de sites web, développement sur mesure, e-commerce, applications et identité de marque.'],
+  '/portfolio': ['Réalisations et concepts de sites web | WASLIVO', 'Explorez nos concepts de sites pour l’immobilier, la restauration, l’éducation, la santé et le commerce en ligne.'],
+  '/about': ['À propos de WASLIVO | Studio numérique', 'Découvrez comment WASLIVO associe les objectifs de votre activité, le contenu, le design et le développement.'],
+  '/packages': ['Forfaits de création de sites web | WASLIVO', 'Des forfaits flexibles de création de sites. Nous définissons le périmètre et le prix final après discussion de vos besoins.'],
+  '/contact': ['Contacter WASLIVO pour votre projet', 'Présentez votre projet de site ou votre idée numérique à WASLIVO par WhatsApp ou avec le formulaire de contact.'],
+  '/blog': ['Articles sur la création de sites et le design | WASLIVO', 'Des conseils pratiques sur la planification d’un site, l’identité numérique et l’expérience mobile.'],
+  '/privacy': ['Politique de confidentialité | WASLIVO', 'Découvrez comment les formulaires de WASLIVO utilisent vos données de contact pour donner suite à votre demande.'],
+  '/terms': ['Conditions générales | WASLIVO', 'Consultez les conditions de WASLIVO et la manière dont le périmètre, les livrables et les prix sont convenus.'],
+}
 
 export const indexablePaths = [
   ...Object.keys(arPages),
@@ -36,33 +48,34 @@ export const indexablePaths = [
   ...projects.map(item => `/portfolio/${item.id}`),
   ...articles.map(item => `/blog/${item.id}`),
   ...marketCodes.map(code => `/${code}`),
-].flatMap(path => [path, path === '/' ? '/en' : `/en${path}`])
+].flatMap(path => [path, path === '/' ? '/en' : `/en${path}`, path === '/' ? '/fr' : `/fr${path}`])
 
 export function getSeo(path) {
   const normalized = path.replace(/\/$/, '') || '/'
   const english = normalized === '/en' || normalized.startsWith('/en/')
-  const localPath = english ? normalized.replace(/^\/en(?=\/|$)/, '') || '/' : normalized
-  const lang = english ? 'en' : 'ar'
-  const table = english ? enPages : arPages
+  const french = normalized === '/fr' || normalized.startsWith('/fr/')
+  const localPath = english || french ? normalized.replace(/^\/(en|fr)(?=\/|$)/, '') || '/' : normalized
+  const lang = french ? 'fr' : english ? 'en' : 'ar'
+  const table = french ? frPages : english ? enPages : arPages
   let [title, description] = table[localPath] || []
   let image = defaultImage
   let kind = 'page'
   let parent = null
   let entity = null
-  const contentProjects = english ? enProjects : projects
-  const contentServices = english ? enServices : services
-  const contentArticles = english ? enArticles : articles
+  const contentProjects = french ? frProjects : english ? enProjects : projects
+  const contentServices = french ? frServices : english ? enServices : services
+  const contentArticles = french ? frArticles : english ? enArticles : articles
   const marketCode = localPath.slice(1)
   if (markets[marketCode]) {
     entity = markets[marketCode]
-    const copy = entity[lang]
-    title = copy.title
-    description = copy.description
+    const copy = french ? null : entity[lang]
+    title = french ? `Création de sites web pour les entreprises en ${({sa:'Arabie saoudite',ae:'Émirats arabes unis',kw:'Koweït',qa:'Qatar',ma:'Maroc'})[marketCode]} | WASLIVO` : copy.title
+    description = french ? `WASLIVO conçoit des sites web clairs et adaptés au mobile pour les entreprises qui s’adressent aux clients en ${({sa:'Arabie saoudite',ae:'Émirats arabes unis',kw:'Koweït',qa:'Qatar',ma:'Maroc'})[marketCode]}.` : copy.description
     kind = 'market'
   } else if (localPath.startsWith('/portfolio/')) {
     entity = contentProjects.find(item => localPath === `/portfolio/${item.id}`)
     if (entity) {
-      title = `${entity.title} | ${english ? 'WASLIVO Portfolio' : 'أعمال وصليفو'}`
+      title = `${entity.title} | ${french ? 'Réalisations WASLIVO' : english ? 'WASLIVO Portfolio' : 'أعمال وصليفو'}`
       description = entity.summary
       image = `${SITE_URL}${entity.previewImage || entity.images.desktop}`
       kind = 'project'
@@ -71,7 +84,7 @@ export function getSeo(path) {
   } else if (localPath.startsWith('/services/')) {
     entity = contentServices.find(item => localPath === `/services/${item.id}`)
     if (entity) {
-      title = `${entity.title} | ${english ? 'WASLIVO' : 'وصليفو'}`
+      title = `${entity.title} | ${english || french ? 'WASLIVO' : 'وصليفو'}`
       description = entity.detail || entity.short
       image = `${SITE_URL}/assets/${entity.image}`
       kind = 'service'
@@ -80,7 +93,7 @@ export function getSeo(path) {
   } else if (localPath.startsWith('/blog/')) {
     entity = contentArticles.find(item => localPath === `/blog/${item.id}`)
     if (entity) {
-      title = `${entity.title} | ${english ? 'WASLIVO' : 'وصليفو'}`
+      title = `${entity.title} | ${english || french ? 'WASLIVO' : 'وصليفو'}`
       description = entity.intro
       const index = contentArticles.findIndex(item => item.id === entity.id)
       image = `${SITE_URL}/assets/${['visuals/blog-brief.webp', 'visuals/blog-brand.webp', 'visuals/blog-mobile.webp'][index]}`
@@ -92,17 +105,18 @@ export function getSeo(path) {
   const url = `${SITE_URL}${normalized === '/' ? '/' : normalized}`
   const arUrl = `${SITE_URL}${localPath === '/' ? '/' : localPath}`
   const enUrl = `${SITE_URL}/en${localPath === '/' ? '' : localPath}`
+  const frUrl = `${SITE_URL}/fr${localPath === '/' ? '' : localPath}`
   const hreflangs = kind === 'market'
-    ? [[`ar-${entity.region}`, arUrl], [`en-${entity.region}`, enUrl], ['x-default', arUrl]]
-    : [['ar', arUrl], ['en', enUrl], ['x-default', arUrl]]
-  return { path: normalized, localPath, lang, title, description, image, url, arUrl, enUrl, hreflangs, kind, parent, entity }
+    ? [[`ar-${entity.region}`, arUrl], [`en-${entity.region}`, enUrl], ['fr', frUrl], ['x-default', arUrl]]
+    : [['ar', arUrl], ['en', enUrl], ['fr', frUrl], ['x-default', arUrl]]
+  return { path: normalized, localPath, lang, title, description, image, url, arUrl, enUrl, frUrl, hreflangs, kind, parent, entity }
 }
 
 export function getStructuredData(seo) {
   const organization = {
     '@type': 'Organization', '@id': `${SITE_URL}/#organization`, name: site.name, alternateName: site.arabicName,
     url: `${SITE_URL}/`, logo, description: 'Website design, development and digital identity studio.',
-    contactPoint: { '@type': 'ContactPoint', telephone: site.phone, contactType: 'customer service', availableLanguage: ['Arabic', 'English'] },
+    contactPoint: { '@type': 'ContactPoint', telephone: site.phone, contactType: 'customer service', availableLanguage: ['Arabic', 'English', 'French'] },
     sameAs: socialProfiles,
   }
   const webpage = {
@@ -114,16 +128,16 @@ export function getStructuredData(seo) {
   if (seo.localPath === '/' || seo.localPath === '/about') graph.unshift(organization)
   if (seo.localPath === '/') graph.push({
     '@type': 'WebSite', '@id': `${SITE_URL}/#website`, url: `${SITE_URL}/`, name: 'WASLIVO',
-    alternateName: 'وصليفو', publisher: { '@id': organization['@id'] }, inLanguage: ['ar', 'en'],
+    alternateName: 'وصليفو', publisher: { '@id': organization['@id'] }, inLanguage: ['ar', 'en', 'fr'],
   })
   if (seo.parent) {
     const localParent = seo.parent
-    const parentPath = seo.lang === 'en' ? `/en${localParent}` : localParent
+    const parentPath = seo.lang === 'ar' ? localParent : `/${seo.lang}${localParent}`
     const parentSeo = getSeo(parentPath)
     graph.push({
       '@type': 'BreadcrumbList', '@id': `${seo.url}#breadcrumb`,
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: seo.lang === 'en' ? 'Home' : 'الرئيسية', item: seo.lang === 'en' ? `${SITE_URL}/en` : `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 1, name: seo.lang === 'fr' ? 'Accueil' : seo.lang === 'en' ? 'Home' : 'الرئيسية', item: seo.lang === 'ar' ? `${SITE_URL}/` : `${SITE_URL}/${seo.lang}` },
         { '@type': 'ListItem', position: 2, name: parentSeo.title.split(' | ')[0], item: parentSeo.url },
         { '@type': 'ListItem', position: 3, name: seo.entity.title, item: seo.url },
       ],
@@ -137,12 +151,12 @@ export function getStructuredData(seo) {
     graph.push({
       '@type': 'BreadcrumbList', '@id': `${seo.url}#breadcrumb`,
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: seo.lang === 'en' ? 'Home' : 'الرئيسية', item: seo.lang === 'en' ? `${SITE_URL}/en` : `${SITE_URL}/` },
-        { '@type': 'ListItem', position: 2, name: seo.lang === 'en' ? seo.entity.country : seo.entity.countryAr, item: seo.url },
+        { '@type': 'ListItem', position: 1, name: seo.lang === 'fr' ? 'Accueil' : seo.lang === 'en' ? 'Home' : 'الرئيسية', item: seo.lang === 'ar' ? `${SITE_URL}/` : `${SITE_URL}/${seo.lang}` },
+        { '@type': 'ListItem', position: 2, name: seo.lang === 'fr' ? seo.title.split(' | ')[0] : seo.lang === 'en' ? seo.entity.country : seo.entity.countryAr, item: seo.url },
       ],
     })
     graph.push({
-      '@type': 'Service', '@id': `${seo.url}#service`, name: seo.entity[seo.lang].h1,
+      '@type': 'Service', '@id': `${seo.url}#service`, name: seo.lang === 'fr' ? seo.title.split(' | ')[0] : seo.entity[seo.lang].h1,
       description: seo.description, url: seo.url, provider: { '@id': organization['@id'] },
       areaServed: { '@type': 'Country', name: seo.entity.country },
     })

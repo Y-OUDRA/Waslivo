@@ -34,7 +34,7 @@ for (const url of urls) {
   assert.ok(html.includes(`<link rel="canonical" href="${url.href}"`), `Wrong canonical on ${url.pathname}`)
   assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, `Expected one H1 on ${url.pathname}`)
   assert.ok(html.includes('id="root"><'), `Missing prerendered content on ${url.pathname}`)
-  assert.ok(html.includes(`lang="${url.pathname.startsWith('/en') ? 'en' : 'ar'}"`), `Wrong language on ${url.pathname}`)
+  assert.ok(html.includes(`lang="${url.pathname.startsWith('/fr') ? 'fr' : url.pathname.startsWith('/en') ? 'en' : 'ar'}"`), `Wrong language on ${url.pathname}`)
   assert.equal(matchMeta(html, 'name', 'robots'), 'index,follow,max-image-preview:large', `Unexpected robots tag on ${url.pathname}`)
   assert.equal(matchMeta(html, 'property', 'og:url'), url.href, `Wrong Open Graph URL on ${url.pathname}`)
   assert.ok(matchMeta(html, 'name', 'twitter:card'), `Missing Twitter card on ${url.pathname}`)
@@ -43,7 +43,7 @@ for (const url of urls) {
   const graph = JSON.parse(schema)['@graph']
   assert.ok(graph.some(item => item['@type'] === 'WebPage'), `Missing WebPage schema on ${url.pathname}`)
   for (const [, ref] of html.matchAll(/(?:src|href)="(\/[^"#?]+)(?:[?#][^"]*)?"/g)) {
-    if (ref.startsWith('/assets/') || ref.startsWith('/images/')) {
+    if (ref.startsWith('/assets/') || ref.startsWith('/images/') || /\.(?:js|css)$/.test(ref)) {
       assert.ok(fs.existsSync(path.join('dist', ref)), `Missing asset ${ref} on ${url.pathname}`)
     } else {
       assert.ok(known.has(ref.replace(/\/$/, '') || '/'), `Missing page ${ref} on ${url.pathname}`)
@@ -70,4 +70,33 @@ for (const [pathname, html] of htmlByPath) {
 
 assert.ok(fs.readFileSync('dist/404.html', 'utf8').includes('content="noindex,follow"'), 'Missing noindex 404 page')
 assert.ok(fs.readFileSync('dist/robots.txt', 'utf8').includes('Sitemap: https://waslivo.agency/sitemap.xml'), 'Missing sitemap in robots.txt')
-console.log(`Verified ${urls.length} prerendered pages, unique metadata, reciprocal hreflang, structured data, links, and image assets.`)
+
+for (const campaign of ['website-offer', 'tiktok-ads']) {
+  const counterparts = ['ar', 'en', 'fr'].map(lang => {
+    const route = `${lang === 'ar' ? '' : `/${lang}`}/${campaign}/`
+    const html = fs.readFileSync(`dist${route}index.html`, 'utf8')
+    assert.ok(html.includes(`<html lang="${lang}" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">`), `Wrong ${lang} language on ${route}`)
+    assert.ok(html.includes(`<link rel="canonical" href="https://waslivo.agency${route}">`), `Wrong campaign canonical on ${route}`)
+    assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, `Expected one H1 on ${route}`)
+    for (const [, ref] of html.matchAll(/(?:src|href)="(\/[^"#?]+)(?:[?#][^"]*)?"/g)) {
+      const target = path.join('dist', ref)
+      assert.ok(fs.existsSync(target) || fs.existsSync(`${target}.html`) || fs.existsSync(path.join(target, 'index.html')), `Missing campaign target ${ref} on ${route}`)
+    }
+    if (campaign === 'website-offer') {
+      assert.ok(html.includes('id="website-lead-form"'), `Missing lead form on ${route}`)
+      const thanks = fs.readFileSync(`dist${route}thank-you/index.html`, 'utf8')
+      assert.ok(thanks.includes(`<html lang="${lang}" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">`), `Wrong thank-you language on ${route}`)
+      assert.ok(thanks.includes('confirm.js'), `Missing confirmation script on ${route}`)
+    } else {
+      assert.ok(html.includes('https://getstartedtiktok.partnerlinks.io/3h13u2ef9r6m'), `Missing referral link on ${route}`)
+    }
+    return [route, html]
+  })
+  for (const [route, html] of counterparts) {
+    for (const [otherRoute] of counterparts) {
+      assert.ok(html.includes(`href="https://waslivo.agency${otherRoute}"`), `Missing campaign alternate on ${route}`)
+      assert.ok(html.includes(`href="${otherRoute}"`), `Missing language switch on ${route}`)
+    }
+  }
+}
+console.log(`Verified ${urls.length} prerendered pages and all AR/EN/FR campaign pages, metadata, links, assets, and lead forms.`)

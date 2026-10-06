@@ -5,6 +5,7 @@ import HomeHero from './HomeHero';
 import ProcessSection from './ProcessSection';
 import HomeTrust from './HomeTrust';
 import EnglishSite from './EnglishSite';
+import FrenchSite from './FrenchSite';
 import LanguageSwitcher from './LanguageSwitcher';
 import MarketPage,{MarketLinks} from './MarketPage';
 import {markets} from './market-data';
@@ -81,9 +82,9 @@ function Page({path}){const bits=path.split('/').filter(Boolean);if(path==='/')r
 const route=()=>typeof window==='undefined'?'/':decodeURIComponent(window.location.pathname).replace(/\.html$/,'').replace(/\/$/,'')||'/';
 function updateMetadata(path){
   const seo=getSeo(path);
-  document.documentElement.lang=seo?.lang||(path.startsWith('/en')?'en':'ar');
-  document.documentElement.dir=seo?.lang==='en'?'ltr':'rtl';
-  document.title=seo?.title||(path.startsWith('/en')?'Page not found | WASLIVO':'الصفحة غير موجودة | وصليفو');
+  document.documentElement.lang=seo?.lang||(path.startsWith('/fr')?'fr':path.startsWith('/en')?'en':'ar');
+  document.documentElement.dir=seo?.lang==='ar'?'rtl':'ltr';
+  document.title=seo?.title||(path.startsWith('/fr')?'Page introuvable | WASLIVO':path.startsWith('/en')?'Page not found | WASLIVO':'الصفحة غير موجودة | وصليفو');
   const meta=(selector,attributes)=>{
     let element=document.head.querySelector(selector);
     if(!element){element=document.createElement('meta');document.head.appendChild(element)}
@@ -121,4 +122,4 @@ export default function App({initialPath}){const [path,setPath]=useState(()=>ini
   const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}}),{threshold:0.12,rootMargin:'0px 0px -5% 0px'});
   targets.forEach(node=>observer.observe(node));
   return()=>{observer.disconnect();targets.forEach(node=>{node.classList.remove('reveal-target','is-visible');node.style.removeProperty('--reveal-delay')})};
- },[path]);return path==='/en'||path.startsWith('/en/')?<EnglishSite path={path}/>:<><Header path={path}/><main><Page path={path}/></main><Footer/><a className="floating-whatsapp" href={whatsapp(waText.general)} target="_blank" rel="noopener noreferrer" aria-label="تواصل معنا عبر واتساب"><img src="/assets/whatsapp.svg" width="29" height="29" alt="" aria-hidden="true"/></a></>}
+ },[path]);return path==='/fr'||path.startsWith('/fr/')?<FrenchSite path={path}/>:path==='/en'||path.startsWith('/en/')?<EnglishSite path={path}/>:<><Header path={path}/><main><Page path={path}/></main><Footer/><a className="floating-whatsapp" href={whatsapp(waText.general)} target="_blank" rel="noopener noreferrer" aria-label="تواصل معنا عبر واتساب"><img src="/assets/whatsapp.svg" width="29" height="29" alt="" aria-hidden="true"/></a></>}

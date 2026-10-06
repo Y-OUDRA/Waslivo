@@ -64,24 +64,24 @@ function HeroVisual({lang='ar'}){
   },[]);
   return <div className="home-hero-visual" ref={visualRef} aria-hidden="true">
     <div className="home-hero-editor-layer"><CodeWindow/></div>
-    {floatingCards.map(({className,Icon,label,value,valueEn})=><div className={`home-hero-float ${className}`} key={className}><div className="home-hero-float-card"><span className="home-hero-float-icon"><Icon size={22}/></span><span><small>{label}</small><strong>{lang==='en'?valueEn:value}</strong></span></div></div>)}
+    {floatingCards.map(({className,Icon,label,value,valueEn})=><div className={`home-hero-float ${className}`} key={className}><div className="home-hero-float-card"><span className="home-hero-float-icon"><Icon size={22}/></span><span><small>{label}</small><strong>{lang==='fr'?({"Fast & secure":"Rapide et sûr","Ready to grow":"Prêt à évoluer","Every device":"Tous les écrans","Built for you":"Sur mesure"})[valueEn]:lang==='en'?valueEn:value}</strong></span></div></div>)}
   </div>;
 }
 
-export default function HomeHero({lang='ar'}){const english=lang==='en';return <section className="home-hero-premium" dir={english?'ltr':'rtl'}>
+export default function HomeHero({lang='ar'}){const english=lang==='en',french=lang==='fr';return <section className="home-hero-premium" dir={english||french?'ltr':'rtl'}>
   <div className="container home-hero-layout">
     <div className="home-hero-copy">
-      <span className="home-hero-eyebrow"><i/>{english?'Digital solutions for your business':'حلول رقمية لأعمالك'}</span>
-      <h1><span>{english?'Build a digital presence':'نبني حضوراً رقمياً'}</span><em>{english?'that fits your ambition':'يليق بأعمالك'}</em></h1>
-      <p>{english?'We design and develop websites and digital experiences that bring together thoughtful design, strong performance, and a clear user journey.':'نصمم ونطوّر مواقع إلكترونية وتجارب رقمية تجمع بين التصميم الاحترافي، الأداء القوي، وتجربة الاستخدام الواضحة.'}</p>
+      <span className="home-hero-eyebrow"><i/>{french?'Des solutions numériques pour votre activité':english?'Digital solutions for your business':'حلول رقمية لأعمالك'}</span>
+      <h1><span>{french?'Une présence numérique':english?'Build a digital presence':'نبني حضوراً رقمياً'}</span><em>{french?'à la hauteur de vos ambitions':english?'that fits your ambition':'يليق بأعمالك'}</em></h1>
+      <p>{french?'Nous concevons et développons des sites et des expériences numériques qui associent design soigné, performance et parcours utilisateur clair.':english?'We design and develop websites and digital experiences that bring together thoughtful design, strong performance, and a clear user journey.':'نصمم ونطوّر مواقع إلكترونية وتجارب رقمية تجمع بين التصميم الاحترافي، الأداء القوي، وتجربة الاستخدام الواضحة.'}</p>
       <div className="home-hero-actions">
-        <a className="home-hero-primary" href={whatsapp(english?'Hello WASLIVO, I would like to discuss a new website project.':heroWhatsapp)} target="_blank" rel="noopener noreferrer">{english?'Get a free consultation':'احصل على استشارة مجانية'} <ArrowLeft size={19}/></a>
-        <a className="home-hero-secondary" href={english?'/en/portfolio':'/portfolio'}>{english?'Explore our work':'اطلع على أعمالنا'} <ArrowLeft size={19}/></a>
+        <a className="home-hero-primary" href={whatsapp(french?'Bonjour WASLIVO, je souhaite discuter de mon projet de site web.':english?'Hello WASLIVO, I would like to discuss a new website project.':heroWhatsapp)} target="_blank" rel="noopener noreferrer">{french?'Obtenir une consultation gratuite':english?'Get a free consultation':'احصل على استشارة مجانية'} <ArrowLeft size={19}/></a>
+        <a className="home-hero-secondary" href={french?'/fr/portfolio':english?'/en/portfolio':'/portfolio'}>{french?'Voir nos réalisations':english?'Explore our work':'اطلع على أعمالنا'} <ArrowLeft size={19}/></a>
       </div>
-      <div className="home-hero-trust" aria-label={english?'Why work with WASLIVO':'مميزات العمل مع وصليفو'}>
-        <span><Monitor size={18}/>{english?'Responsive design':'تصميم متجاوب'}</span>
-        <span><Zap size={18}/>{english?'Fast performance':'أداء سريع'}</span>
-        <span><Headphones size={18}/>{english?'Ongoing support':'دعم ومتابعة'}</span>
+      <div className="home-hero-trust" aria-label={french?'Pourquoi travailler avec WASLIVO':english?'Why work with WASLIVO':'مميزات العمل مع وصليفو'}>
+        <span><Monitor size={18}/>{french?'Design adaptatif':english?'Responsive design':'تصميم متجاوب'}</span>
+        <span><Zap size={18}/>{french?'Performance rapide':english?'Fast performance':'أداء سريع'}</span>
+        <span><Headphones size={18}/>{french?'Suivi et assistance':english?'Ongoing support':'دعم ومتابعة'}</span>
       </div>
     </div>
     <HeroVisual lang={lang}/>
