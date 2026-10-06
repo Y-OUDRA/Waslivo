@@ -126,6 +126,22 @@
     submitButton.classList.add('is-loading');
     form.setAttribute('aria-busy', 'true');
     submitButton.textContent = 'جاري إرسال طلبك...';
+    let pendingSaved = false;
+    try {
+      sessionStorage.removeItem('waslivo_website_offer_submitted');
+      sessionStorage.setItem('waslivo_website_offer_pending', JSON.stringify(payload));
+      pendingSaved = true;
+    } catch { /* Keep the confirmed in-page submission as a storage fallback. */ }
+    if (pendingSaved) {
+      try {
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon(leadEndpoint, new URLSearchParams({payload: JSON.stringify(payload)}));
+        }
+      } catch { /* The thank-you page will submit and verify the same request. */ }
+      location.assign('/website-offer/thank-you/');
+      return;
+    }
+
     setMessage('جاري حفظ طلبك، انتظر لحظات.', 'pending');
     const slowTimer = setTimeout(() => setMessage('ما زلنا نؤكد وصول طلبك، شكراً على انتظارك.', 'pending'), 7000);
     try {
