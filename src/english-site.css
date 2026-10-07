@@ -7,6 +7,8 @@
 .header-dark .language-switch{--language-active:#fbfaf7;--language-muted:#ffffff73;--language-divider:#ffffff40}
 .english-site{direction:ltr;text-align:left}
 .english-site .header-inner,.english-site .header-nav,.english-site .footer-main,.english-site .footer-bottom{direction:ltr}
+.english-site .footer-main{direction:rtl}
+.english-site .footer-main>.footer-brand{text-align:left;direction:ltr}
 .english-site .header-nav a{white-space:nowrap}
 .english-site .home-hero-copy{direction:ltr}
 .english-site .home-hero-copy h1{font-size:clamp(41px,4.5vw,70px)}

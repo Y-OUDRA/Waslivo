@@ -23,14 +23,15 @@ try {
   ])
   const seoPages = indexablePaths.map(pathname => getSeo(pathname))
   const arabicRoutes = seoPages.filter(page => page.lang === 'ar').map(page => page.path === '/' ? '/' : `${page.path}*`)
-  const routes = JSON.stringify({ version: 1, include: [...arabicRoutes, '/website-offer/', '/tiktok-ads/'], exclude: [] }, null, 2)
+  const routes = JSON.stringify({ version: 1, include: [...arabicRoutes, '/website-offer/', '/tiktok-ads/', '/tiktok-ads-account/'], exclude: [] }, null, 2)
   await Promise.all([
     writeFile(path.join(root, 'public', '_routes.json'), routes),
     writeFile(path.join(dist, '_routes.json'), routes),
   ])
   if (seoPages.some(page => !page)) throw new Error('The SEO route registry includes a page without metadata')
   if (new Set(seoPages.map(page => page.path)).size !== seoPages.length) throw new Error('Duplicate SEO routes')
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${seoPages.map(page => `  <url><loc>${escapeHtml(page.url)}</loc></url>`).join('\n')}\n</urlset>\n`
+  const campaignUrls = ['', '/en', '/fr'].map(prefix => `${SITE_URL}${prefix}/tiktok-ads-account/`)
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...seoPages.map(page => page.url), ...campaignUrls].map(url => `  <url><loc>${escapeHtml(url)}</loc></url>`).join('\n')}\n</urlset>\n`
   await Promise.all([
     writeFile(path.join(root, 'public', 'sitemap.xml'), sitemap),
     writeFile(path.join(dist, 'sitemap.xml'), sitemap),

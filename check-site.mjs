@@ -20,6 +20,7 @@ function matchMeta(html, key, value) {
 }
 
 for (const url of urls) {
+  if (/^\/(?:en\/|fr\/)?tiktok-ads-account\/$/.test(url.pathname)) continue
   assert.equal(url.origin, 'https://waslivo.agency')
   const html = fs.readFileSync(pageFile(url.pathname), 'utf8')
   htmlByPath.set(url.pathname, html)
@@ -71,7 +72,7 @@ for (const [pathname, html] of htmlByPath) {
 assert.ok(fs.readFileSync('dist/404.html', 'utf8').includes('content="noindex,follow"'), 'Missing noindex 404 page')
 assert.ok(fs.readFileSync('dist/robots.txt', 'utf8').includes('Sitemap: https://waslivo.agency/sitemap.xml'), 'Missing sitemap in robots.txt')
 
-for (const campaign of ['website-offer', 'tiktok-ads']) {
+for (const campaign of ['website-offer', 'tiktok-ads', 'tiktok-ads-account']) {
   const counterparts = ['ar', 'en', 'fr'].map(lang => {
     const route = `${lang === 'ar' ? '' : `/${lang}`}/${campaign}/`
     const html = fs.readFileSync(`dist${route}index.html`, 'utf8')
@@ -87,6 +88,14 @@ for (const campaign of ['website-offer', 'tiktok-ads']) {
       const thanks = fs.readFileSync(`dist${route}thank-you/index.html`, 'utf8')
       assert.ok(thanks.includes(`<html lang="${lang}" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">`), `Wrong thank-you language on ${route}`)
       assert.ok(thanks.includes('confirm.js'), `Missing confirmation script on ${route}`)
+    } else if (campaign === 'tiktok-ads-account') {
+      assert.ok(known.has(route), `Missing TikTok account page from sitemap: ${route}`)
+      assert.ok(html.includes('id="account-lead-form"'), `Missing TikTok account lead form on ${route}`)
+      assert.ok(html.includes('id="monthly-budget"') && html.includes('id="budget-range"'), `Missing calculator on ${route}`)
+      assert.ok(html.includes('application/ld+json'), `Missing FAQ structured data on ${route}`)
+      const thanks = fs.readFileSync(`dist${route}thank-you/index.html`, 'utf8')
+      assert.ok(thanks.includes(`<html lang="${lang}" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">`), `Wrong TikTok account thank-you language on ${route}`)
+      assert.ok(thanks.includes('confirm.js'), `Missing TikTok account confirmation script on ${route}`)
     } else {
       assert.ok(html.includes('https://getstartedtiktok.partnerlinks.io/3h13u2ef9r6m'), `Missing referral link on ${route}`)
     }
@@ -99,4 +108,4 @@ for (const campaign of ['website-offer', 'tiktok-ads']) {
     }
   }
 }
-console.log(`Verified ${urls.length} prerendered pages and all AR/EN/FR campaign pages, metadata, links, assets, and lead forms.`)
+console.log(`Verified ${htmlByPath.size} prerendered pages, ${urls.length - htmlByPath.size} sitemap campaign URLs, and all AR/EN/FR campaign pages, metadata, links, assets, and lead forms.`)

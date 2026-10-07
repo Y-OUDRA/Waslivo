@@ -3,6 +3,8 @@
 // The spreadsheet ID below refers to the verified sheet created for this page.
 const SPREADSHEET_ID = '198ndUT_4hWDJJUb-CLjMs4u_biyTggYdy69X9zmpG80';
 const SHEET_NAME = 'Website Leads';
+const ACCOUNT_SHEET_NAME = 'TikTok Account Leads';
+const ACCOUNT_SERVICE = 'us_tiktok_ads_account_0_tax';
 
 function doPost(event) {
   let requestId = '';
@@ -24,20 +26,36 @@ function doPost(event) {
     if (!responseOrigin(pageUrl)) {
       return respond(false, requestId, targetOrigin);
     }
-    const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
-    if (!sheet) throw new Error('Missing Website Leads sheet');
+    const accountLead = data.service === ACCOUNT_SERVICE;
+    const accountPage = /^(https:\/\/waslivo\.agency|http:\/\/127\.0\.0\.1:417[34])\/(?:en\/|fr\/)?tiktok-ads-account\/?(?:[?#].*)?$/.test(pageUrl);
+    if (accountLead !== accountPage) return respond(false, requestId, targetOrigin);
+    const quantity = String(data.quantity == null ? '' : data.quantity);
+    const spend = String(data.monthlySpend == null ? '' : data.monthlySpend);
+    const language = String(data.language == null ? '' : data.language);
+    if (accountLead && (!['1','2','3','4','5+'].includes(quantity) || !/^(?:[0-6])?$/.test(spend) || !['ar','en','fr'].includes(language))) {
+      return respond(false, requestId, targetOrigin);
+    }
+    const calculatedPrice = accountLead ? (quantity === '5+' ? 'Contact for details' : Number(quantity) * 400) : '';
     const lock = LockService.getScriptLock();
     lock.waitLock(10000);
     let isNewLead = false;
     try {
       const cache = CacheService.getScriptCache();
       if (!cache.get(requestId)) {
-        sheet.appendRow([
-          new Date(), fullName, clean(phone, 20), businessActivity,
-          clean(data.source, 200), clean(data.utm_source, 200), clean(data.utm_medium, 200),
-          clean(data.utm_campaign, 200), clean(data.utm_content, 200), clean(data.utm_term, 200),
-          pageUrl, clean(data.referrer, 500),
-        ]);
+        const book = SpreadsheetApp.openById(SPREADSHEET_ID);
+        const sheet = accountLead ? (book.getSheetByName(ACCOUNT_SHEET_NAME) || book.insertSheet(ACCOUNT_SHEET_NAME)) : book.getSheetByName(SHEET_NAME);
+        if (!sheet) throw new Error('Missing Website Leads sheet');
+        if (accountLead) {
+          if (sheet.getLastRow() === 0) sheet.appendRow(['Timestamp','Full name','WhatsApp phone','Business activity','Monthly TikTok spend','Number of accounts','Calculated price MAD','Service','Language','UTM source','UTM medium','UTM campaign','UTM content','UTM term','Referrer','Landing page URL','Request ID']);
+          sheet.appendRow([new Date(),fullName,clean(phone,20),businessActivity,spend,quantity,calculatedPrice,ACCOUNT_SERVICE,language,clean(data.utm_source,200),clean(data.utm_medium,200),clean(data.utm_campaign,200),clean(data.utm_content,200),clean(data.utm_term,200),clean(data.referrer,500),pageUrl,requestId]);
+        } else {
+          sheet.appendRow([
+            new Date(), fullName, clean(phone, 20), businessActivity,
+            clean(data.source, 200), clean(data.utm_source, 200), clean(data.utm_medium, 200),
+            clean(data.utm_campaign, 200), clean(data.utm_content, 200), clean(data.utm_term, 200),
+            pageUrl, clean(data.referrer, 500),
+          ]);
+        }
         cache.put(requestId, '1', 21600);
         isNewLead = true;
       }
@@ -45,7 +63,7 @@ function doPost(event) {
       lock.releaseLock();
     }
     // Telegram must never turn an already saved lead into a failed form response.
-    if (isNewLead) notifyTelegramLead(fullName, phone, businessActivity);
+    if (isNewLead) notifyTelegramLead(fullName, phone, businessActivity, accountLead ? {quantity,spend,calculatedPrice} : null);
     return respond(true, requestId, targetOrigin);
   } catch (error) {
     console.error(error);
@@ -53,7 +71,7 @@ function doPost(event) {
   }
 }
 
-function notifyTelegramLead(fullName, phone, businessActivity) {
+function notifyTelegramLead(fullName, phone, businessActivity, accountDetails) {
   try {
     const properties = PropertiesService.getScriptProperties();
     const token = properties.getProperty('TELEGRAM_BOT_TOKEN');
@@ -63,10 +81,11 @@ function notifyTelegramLead(fullName, phone, businessActivity) {
       return false;
     }
     const text = [
-      '🔔 Lead جديد من صفحة تصميم المواقع',
+      accountDetails ? '🔔 Lead جديد: TikTok Ads Account' : '🔔 Lead جديد من صفحة تصميم المواقع',
       'الاسم: ' + fullName,
       'الجوال: ' + phone,
       'النشاط: ' + businessActivity,
+      ...(accountDetails ? ['عدد الحسابات: ' + accountDetails.quantity,...(accountDetails.spend ? ['ميزانية TikTok الشهرية: ' + accountDetails.spend] : []),'الثمن: ' + accountDetails.calculatedPrice + ' DH'] : []),
     ].join('\n');
     const response = UrlFetchApp.fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
       method: 'post',
@@ -106,10 +125,8 @@ function sendTelegramTest() {
 }
 
 function responseOrigin(pageUrl) {
-  const live = 'https://waslivo.agency/website-offer';
-  const preview = 'http://127.0.0.1:4173/website-offer';
-  if ([live, live + '/'].includes(pageUrl) || pageUrl.startsWith(live + '/?') || pageUrl.startsWith(live + '/#')) return 'https://waslivo.agency';
-  if ([preview, preview + '/'].includes(pageUrl) || pageUrl.startsWith(preview + '/?') || pageUrl.startsWith(preview + '/#')) return 'http://127.0.0.1:4173';
+  const match = /^(https:\/\/waslivo\.agency|http:\/\/127\.0\.0\.1:417[34])\/(?:en\/|fr\/)?(?:website-offer|tiktok-ads-account)\/?(?:[?#].*)?$/.exec(pageUrl);
+  if (match) return match[1];
   return '';
 }
 

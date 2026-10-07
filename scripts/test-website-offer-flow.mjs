@@ -38,7 +38,7 @@ const ids = new Map([
 ])
 const location = { href: 'https://waslivo.agency/website-offer/', search: '', assign: url => { destination = url } }
 runInNewContext(readFileSync(new URL('../public/website-offer/app.js', import.meta.url), 'utf8'), {
-  document: { getElementById: id => ids.get(id), querySelectorAll: () => [], addEventListener() {}, body: { classList: classList() } },
+  document: { documentElement: { lang: 'ar' }, getElementById: id => ids.get(id), querySelectorAll: () => [], addEventListener() {}, body: { classList: classList() } },
   window: { addEventListener() {}, matchMedia: () => ({ matches: false }), scrollY: 0 },
   navigator: { sendBeacon: (_url, body) => { beaconBody = body; return true } },
   sessionStorage, location, URLSearchParams, crypto: { randomUUID: () => requestId },
@@ -58,10 +58,10 @@ let messageHandler
 const status = new Map([
   ['status-mark', element()], ['status-heading', element()], ['status-description', element()],
   ['retry-button', element({ addEventListener: (_event, handler) => { retryHandler = handler } })],
-  ['thank-you-whatsapp', element()],
+  ['thank-you-actions', element()],
 ])
 const confirmDocument = {
-  documentElement: { dataset: {} },
+  documentElement: { lang: 'ar', dataset: {} },
   getElementById: id => status.get(id),
   body: { append() {} },
   createElement: type => {

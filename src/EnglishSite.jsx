@@ -50,9 +50,9 @@ const socialLinks = [
   [site.social.facebook, 'Follow WASLIVO on Facebook', Facebook],
   [site.social.tiktok, 'Follow WASLIVO on TikTok', TiktokIcon],
 ]
-function Footer() {
+function Footer({path}) {
   return <footer className="footer"><div className="container footer-main">
-    <div className="footer-brand"><Logo/><div className="footer-social"><span>Follow us</span><div className="footer-social-links">{socialLinks.map(([href, label, Icon]) => <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label} key={href}><Icon size={20}/></a>)}</div></div></div>
+    <div className="footer-brand"><Logo/><div className="footer-language-switch"><LanguageSwitcher path={path} english/></div><div className="footer-social"><span>Follow us</span><div className="footer-social-links">{socialLinks.map(([href, label, Icon]) => <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label} key={href}><Icon size={20}/></a>)}</div></div></div>
     <div><h3>Quick links</h3>{nav.filter(([to]) => !to.includes('#')).map(([to, label]) => <Link key={to} to={to}>{label}</Link>)}</div>
     <div><h3>Services</h3>{enServices.slice(0, 6).map(s => <Link key={s.id} to={`/services/${s.id}`}>{s.title}</Link>)}</div>
     <div className="footer-contact"><h3>Contact</h3><p>We are here to answer your questions and discuss your next project.</p><WButton>Start a WhatsApp chat</WButton></div>
@@ -180,5 +180,5 @@ export function englishMetadata(path) {
 }
 export default function EnglishSite({ path }) {
   const localPath = path.replace(/^\/en(?=\/|$)/, '') || '/'
-  return <div className="english-site" dir="ltr"><Header path={localPath}/><main><Page path={localPath}/></main><Footer/><a className="floating-whatsapp" href={whatsapp(defaultMessage)} target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp"><img src="/assets/whatsapp.svg" width="29" height="29" alt="" aria-hidden="true"/></a></div>
+  return <div className="english-site" dir="ltr"><Header path={localPath}/><main><Page path={localPath}/></main><Footer path={localPath}/><a className="floating-whatsapp" href={whatsapp(defaultMessage)} target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp"><img src="/assets/whatsapp.svg" width="29" height="29" alt="" aria-hidden="true"/></a></div>
 }

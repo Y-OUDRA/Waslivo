@@ -34,7 +34,7 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   const path = url.pathname;
   if (path.startsWith('/en/') || path === '/en' || path.startsWith('/fr/') || path === '/fr' ||
-      path.startsWith('/website-offer/thank-you/') || /\.[a-z0-9]+$/i.test(path)) return context.next();
+      path.startsWith('/website-offer/thank-you/') || path.startsWith('/tiktok-ads-account/thank-you/') || /\.[a-z0-9]+$/i.test(path)) return context.next();
   const lang = preferredLanguage(request);
   if (lang === 'ar') return context.next();
   url.pathname = `/${lang}${path === '/' ? '/' : path}`;

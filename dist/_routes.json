@@ -36,7 +36,8 @@
     "/qa*",
     "/ma*",
     "/website-offer/",
-    "/tiktok-ads/"
+    "/tiktok-ads/",
+    "/tiktok-ads-account/"
   ],
   "exclude": []
 }
