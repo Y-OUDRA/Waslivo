@@ -11,6 +11,12 @@ function doPost(event) {
   let requestId = '';
   let targetOrigin = 'https://waslivo.agency';
   try {
+    if (event.parameter && event.parameter.action === 'notify') {
+      requestId = clean(event.parameter.requestId, 80);
+      targetOrigin = responseOrigin(event.parameter.page_url || '') || targetOrigin;
+      const sent = processTelegramQueueItem(requestId);
+      return respond(sent, requestId, targetOrigin);
+    }
     const data = JSON.parse(event.parameter && event.parameter.payload || '{}');
     requestId = clean(data.requestId, 80);
     const pageUrl = clean(data.page_url, 500);
@@ -39,8 +45,6 @@ function doPost(event) {
     const calculatedPrice = accountLead ? (quantity === '5+' ? 'Contact for details' : Number(quantity) * 400) : '';
     const lock = LockService.getScriptLock();
     lock.waitLock(10000);
-    let isNewLead = false;
-    let telegramQueued = false;
     try {
       const cache = CacheService.getScriptCache();
       if (!cache.get(requestId)) {
@@ -65,20 +69,16 @@ function doPost(event) {
         }
         try {
           enqueueTelegramLead(book, requestId, sheet.getName());
-          telegramQueued = true;
         } catch (queueError) {
-          // Preserve the immediate alert as a fallback if the durable queue cannot be written.
-          console.error('Telegram queue write failed; using inline notification');
+          // The browser's follow-up notification request and scheduled worker
+          // both use this queue, so never delay lead confirmation here.
+          console.error('Telegram queue write failed');
         }
         cache.put(requestId, '1', 21600);
-        isNewLead = true;
       }
     } finally {
       lock.releaseLock();
     }
-    // The durable queue lets us confirm a saved lead without waiting on Telegram.
-    // This only runs when queue storage fails, and never turns a saved lead into an error.
-    if (isNewLead && !telegramQueued) notifyTelegramLead(fullName, phone, businessActivity, accountLead ? {quantity,spend,calculatedPrice} : null);
     return respond(true, requestId, targetOrigin);
   } catch (error) {
     console.error(error);
@@ -128,32 +128,67 @@ function processTelegramQueue() {
       if ((status !== 'PENDING' && !staleProcessing) || attempts >= 5) continue;
       const nextAttempt = attempts + 1;
       sheet.getRange(index + 1,4,1,3).setValues([['PROCESSING',nextAttempt,new Date()]]);
-      const sourceSheet = book.getSheetByName(String(row[2]));
-      const sourceRows = sourceSheet ? sourceSheet.getDataRange().getValues() : [];
-      const lead = sourceRows.find(sourceRow => String(sourceRow[sourceRow.length - 1]) === String(row[0]));
-      if (!lead) {
-        sheet.getRange(index + 1,4,1,3).setValues([['FAILED',nextAttempt,new Date()]]);
-        continue;
-      }
-      const accountLead = String(row[2]) === ACCOUNT_SHEET_NAME;
-      const accountDetails = accountLead ? {quantity:lead[5],spend:lead[4],calculatedPrice:lead[6]} : null;
-      jobs.push({row:index + 1,fullName:lead[1],phone:lead[2],businessActivity:lead[3],accountDetails,attempts:nextAttempt});
+      jobs.push({requestId:String(row[0]),sourceSheet:String(row[2]),row:index + 1,attempts:nextAttempt});
     }
   } finally {
     lock.releaseLock();
   }
 
-  for (const job of jobs) {
-    const sent = notifyTelegramLead(job.fullName,job.phone,job.businessActivity,job.accountDetails);
-    lock.waitLock(5000);
-    try {
-      const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(TELEGRAM_QUEUE_SHEET_NAME);
-      const nextStatus = sent ? 'SENT' : (job.attempts >= 5 ? 'FAILED' : 'PENDING');
-      sheet.getRange(job.row,4,1,3).setValues([[nextStatus,job.attempts,new Date()]]);
-    } finally {
-      lock.releaseLock();
+  jobs.forEach(sendClaimedTelegramJob);
+}
+
+// Called directly after the browser confirms that a lead was saved. The queue
+// is claimed under a short lock; reading the lead and contacting Telegram happen
+// after the lock is released, so a slow notification cannot hold up new leads.
+function processTelegramQueueItem(requestId) {
+  if (!/^[a-f0-9-]{36}$/.test(requestId || '')) return false;
+  const lock = LockService.getScriptLock();
+  lock.waitLock(5000);
+  let job = null;
+  try {
+    const book = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = book.getSheetByName(TELEGRAM_QUEUE_SHEET_NAME);
+    if (!sheet || sheet.getLastRow() < 2) return false;
+    const rows = sheet.getDataRange().getValues();
+    const now = Date.now();
+    for (let index = 1; index < rows.length; index++) {
+      const row = rows[index];
+      if (String(row[0]) !== requestId) continue;
+      const status = String(row[3] || '');
+      const attempts = Number(row[4]) || 0;
+      const lastAttempt = row[5] instanceof Date ? row[5].getTime() : 0;
+      const staleProcessing = status === 'PROCESSING' && now - lastAttempt > 5 * 60 * 1000;
+      if ((status !== 'PENDING' && !staleProcessing) || attempts >= 5) return status === 'SENT';
+      const nextAttempt = attempts + 1;
+      sheet.getRange(index + 1,4,1,3).setValues([['PROCESSING',nextAttempt,new Date()]]);
+      job = {requestId,sourceSheet:String(row[2]),row:index + 1,attempts:nextAttempt};
+      break;
     }
+  } finally {
+    lock.releaseLock();
   }
+  return job ? sendClaimedTelegramJob(job) : false;
+}
+
+function sendClaimedTelegramJob(job) {
+  const book = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sourceSheet = book.getSheetByName(job.sourceSheet);
+  const sourceRows = sourceSheet ? sourceSheet.getDataRange().getValues() : [];
+  const lead = sourceRows.find(sourceRow => String(sourceRow[sourceRow.length - 1]) === String(job.requestId));
+  const sent = lead ? notifyTelegramLead(
+    lead[1],lead[2],lead[3],
+    job.sourceSheet === ACCOUNT_SHEET_NAME ? {quantity:lead[5],spend:lead[4],calculatedPrice:lead[6]} : null
+  ) : false;
+  const lock = LockService.getScriptLock();
+  lock.waitLock(5000);
+  try {
+    const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(TELEGRAM_QUEUE_SHEET_NAME);
+    const nextStatus = sent ? 'SENT' : (job.attempts >= 5 ? 'FAILED' : 'PENDING');
+    sheet.getRange(job.row,4,1,3).setValues([[nextStatus,job.attempts,new Date()]]);
+  } finally {
+    lock.releaseLock();
+  }
+  return sent;
 }
 
 function notifyTelegramLead(fullName, phone, businessActivity, accountDetails) {

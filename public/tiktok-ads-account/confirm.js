@@ -34,6 +34,16 @@
     const timer = setTimeout(() => { if (!settled) { settled = true; cleanup(); reject(new Error('timeout')); } },25000);
     addEventListener('message',receive); form.submit();
   });
+  const notifyTelegramInBackground = payload => {
+    const frameName = `waslivo-telegram-${payload.requestId}`;
+    const frame = document.createElement('iframe'); frame.name = frameName; frame.title = 'Send lead notification'; frame.hidden = true; document.body.append(frame);
+    const form = document.createElement('form'); form.method = 'POST'; form.action = endpoint; form.target = frameName; form.hidden = true;
+    [['action','notify'],['requestId',payload.requestId],['page_url',payload.page_url]].forEach(([name,value]) => {
+      const input = document.createElement('input'); input.type = 'hidden'; input.name = name; input.value = value || ''; form.append(input);
+    });
+    document.body.append(form); form.submit();
+    setTimeout(() => { form.remove(); frame.remove(); },20000);
+  };
   const confirm = async () => {
     if (busy) return;
     const raw = sessionStorage.getItem(pendingKey);
@@ -47,6 +57,7 @@
     try {
       const result = await submitToSheet(payload);
       if (result.success !== true) throw new Error('rejected');
+      notifyTelegramInBackground(payload);
       sessionStorage.setItem(confirmedKey,'1'); sessionStorage.removeItem(pendingKey);
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({event:'tiktok_account_form_success',service:payload.service,quantity:payload.quantity,value:payload.quantity === '5+' ? undefined : Number(payload.calculatedPrice),currency:'MAD'});

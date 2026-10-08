@@ -84,6 +84,30 @@
     postForm.submit();
   });
 
+  const notifyTelegramInBackground = payload => {
+    const frameName = `waslivo-telegram-${payload.requestId}`;
+    const frame = document.createElement('iframe');
+    frame.name = frameName;
+    frame.title = copy.frame;
+    frame.hidden = true;
+    document.body.append(frame);
+    const postForm = document.createElement('form');
+    postForm.method = 'POST';
+    postForm.action = leadEndpoint;
+    postForm.target = frameName;
+    postForm.hidden = true;
+    [['action','notify'],['requestId',payload.requestId],['page_url',payload.page_url]].forEach(([name,value]) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = value || '';
+      postForm.append(input);
+    });
+    document.body.append(postForm);
+    postForm.submit();
+    setTimeout(() => { postForm.remove(); frame.remove(); }, 20000);
+  };
+
   const confirmLead = async () => {
     if (sending) return;
     const raw = sessionStorage.getItem(pendingKey);
@@ -99,6 +123,7 @@
     try {
       const result = await submitToSheet(payload);
       if (result.success !== true) throw new Error('Submission not confirmed');
+      notifyTelegramInBackground(payload);
       sessionStorage.removeItem(pendingKey);
       sessionStorage.setItem(submittedKey, '1');
       if (typeof window.fbq === 'function') window.fbq('track', 'Lead', {service: 'website_design', market: 'saudi_arabia'});
