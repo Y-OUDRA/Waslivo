@@ -68,6 +68,7 @@
     };
     const onMessage = event => {
       const data = event.data;
+      if (!/^https:\/\/(?:[a-z0-9-]+-)?script\.googleusercontent\.com$/.test(event.origin) && event.origin !== 'https://script.google.com') return;
       if (!data || data.type !== 'waslivo-lead-result' || data.requestId !== payload.requestId || done) return;
       done = true;
       cleanup();

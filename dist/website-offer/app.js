@@ -60,6 +60,22 @@
     steps.forEach(step => observer.observe(step));
   });
 
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const revealTargets = document.querySelectorAll('.home-portfolio-head, .home-project-row .project-card, .work-cta, .price-inner, .waslivo-process-intro, .waslivo-process-step, .included-intro, .check-list, .faq-grid > *, .final-inner');
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      });
+    }, {threshold: 0.1, rootMargin: '0px 0px -20px 0px'});
+    revealTargets.forEach((target, index) => {
+      target.classList.add('offer-reveal');
+      target.style.setProperty('--offer-reveal-delay', `${index % 3 * 65}ms`);
+      revealObserver.observe(target);
+    });
+  }
+
   const digitMap = '٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹';
   const latinDigits = value => value.replace(/[٠-٩۰-۹]/g, char => String(digitMap.indexOf(char) % 10));
   const normalizePhone = value => {
@@ -140,11 +156,6 @@
       pendingSaved = true;
     } catch { /* Keep the confirmed in-page submission as a storage fallback. */ }
     if (pendingSaved) {
-      try {
-        if (navigator.sendBeacon) {
-          navigator.sendBeacon(leadEndpoint, new URLSearchParams({payload: JSON.stringify(payload)}));
-        }
-      } catch { /* The thank-you page will submit and verify the same request. */ }
       location.assign(thankYouPath);
       return;
     }
@@ -198,6 +209,7 @@
       };
       const onMessage = event => {
         const data = event.data;
+        if (!/^https:\/\/(?:[a-z0-9-]+-)?script\.googleusercontent\.com$/.test(event.origin) && event.origin !== 'https://script.google.com') return;
         if (!data || data.type !== 'waslivo-lead-result' || data.requestId !== payload.requestId || done) return;
         done = true;
         cleanup();

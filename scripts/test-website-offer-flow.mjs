@@ -16,7 +16,6 @@ const element = extra => ({ textContent: '', className: '', hidden: false, class
 
 let submitHandler
 let destination
-let beaconBody
 const fields = {
   fullName: element({ value: 'Test Visitor', focus() {} }),
   phone: element({ value: '0551234567', focus() {} }),
@@ -40,7 +39,7 @@ const location = { href: 'https://waslivo.agency/website-offer/', search: '', as
 runInNewContext(readFileSync(new URL('../public/website-offer/app.js', import.meta.url), 'utf8'), {
   document: { documentElement: { lang: 'ar' }, getElementById: id => ids.get(id), querySelectorAll: () => [], addEventListener() {}, body: { classList: classList() } },
   window: { addEventListener() {}, matchMedia: () => ({ matches: false }), scrollY: 0 },
-  navigator: { sendBeacon: (_url, body) => { beaconBody = body; return true } },
+  navigator: { sendBeacon: () => { throw new Error('A second background submission must not run') } },
   sessionStorage, location, URLSearchParams, crypto: { randomUUID: () => requestId },
   IntersectionObserver: class { observe() {} }, Date, setTimeout, clearTimeout,
 })
@@ -50,7 +49,6 @@ assert.equal(destination, '/website-offer/thank-you/')
 const pending = JSON.parse(sessionStorage.getItem(pendingKey))
 assert.equal(pending.requestId, requestId)
 assert.equal(pending.phone, '+966551234567')
-assert.equal(JSON.parse(beaconBody.get('payload')).requestId, requestId)
 
 let retryHandler
 let resultSuccess = false
@@ -66,7 +64,7 @@ const confirmDocument = {
   body: { append() {} },
   createElement: type => {
     if (type !== 'form') return element()
-    return element({ append() {}, submit: () => messageHandler({ data: { type: 'waslivo-lead-result', success: resultSuccess, requestId } }) })
+    return element({ append() {}, submit: () => messageHandler({ origin: 'https://n-example-0lu-script.googleusercontent.com', data: { type: 'waslivo-lead-result', success: resultSuccess, requestId } }) })
   },
 }
 runInNewContext(readFileSync(new URL('../public/website-offer/thank-you/confirm.js', import.meta.url), 'utf8'), {

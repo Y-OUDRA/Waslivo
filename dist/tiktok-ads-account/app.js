@@ -8,7 +8,6 @@
   const toggle = header.querySelector('.nav-toggle');
   const sticky = document.getElementById('account-sticky');
   const formSection = document.getElementById('lead-form');
-  const endpoint = 'https://script.google.com/macros/s/AKfycby02V_kAjWMqVcmCfQNqFEBv17g2yudAUU06c1W0jQ6q6el5eFcHIMbhUeMQAKmCWhJIw/exec';
   const pendingKey = 'waslivo_tiktok_account_pending';
   const event = (name, extra = {}) => { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:name, service:'us_tiktok_ads_account_0_tax', ...extra}); };
   document.querySelectorAll('[data-year]').forEach(node => node.textContent = new Date().getFullYear());
@@ -97,7 +96,7 @@
     try {
       sessionStorage.setItem(pendingKey,JSON.stringify(payload));
       sessionStorage.removeItem('waslivo_tiktok_account_confirmed');
-      try { if (navigator.sendBeacon) navigator.sendBeacon(endpoint,new URLSearchParams({payload:JSON.stringify(payload)})); } catch { /* Confirmation page retries using the same request ID. */ }
+      // The confirmation page sends once and waits for the server response.
       event('tiktok_account_form_submit',{number_of_accounts:1,calculated_price:400,utm_campaign:utm('utm_campaign')});
       location.assign(`${lang === 'ar' ? '' : '/' + lang}/tiktok-ads-account/thank-you/`);
     } catch {

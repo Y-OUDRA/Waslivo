@@ -27,7 +27,9 @@
     let settled = false;
     const cleanup = () => { clearTimeout(timer); removeEventListener('message',receive); form.remove(); frame.remove(); };
     const receive = e => {
-      if (settled || e.source !== frame.contentWindow || !(/^https:\/\/(?:[a-z0-9-]+\.)?script\.googleusercontent\.com$/.test(e.origin) || e.origin === 'https://script.google.com') || e.data?.type !== 'waslivo-lead-result' || e.data.requestId !== payload.requestId) return;
+      // Apps Script can relay its response from a nested sandbox iframe, so
+      // e.source need not be the outer frame. Validate its origin and request ID.
+      if (settled || !(/^https:\/\/(?:[a-z0-9-]+-)?script\.googleusercontent\.com$/.test(e.origin) || e.origin === 'https://script.google.com') || e.data?.type !== 'waslivo-lead-result' || e.data.requestId !== payload.requestId) return;
       settled = true; cleanup(); resolve(e.data);
     };
     const timer = setTimeout(() => { if (!settled) { settled = true; cleanup(); reject(new Error('timeout')); } },25000);
