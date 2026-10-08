@@ -9,7 +9,6 @@
   const mark = document.getElementById('status-mark');
   const retry = document.getElementById('retry-button');
   const actions = document.getElementById('thanks-actions');
-  const summary = document.getElementById('thanks-summary');
   const nav = document.getElementById('primary-nav');
   const header = document.getElementById('site-header');
   const toggle = header.querySelector('.nav-toggle');
@@ -49,8 +48,6 @@
       const result = await submitToSheet(payload);
       if (result.success !== true) throw new Error('rejected');
       sessionStorage.setItem(confirmedKey,'1'); sessionStorage.removeItem(pendingKey);
-      summary.textContent = payload.quantity === '5+' ? `${payload.quantity} ${copy.accounts} · ${payload.phone}` : `${payload.quantity} × 400 DH = ${payload.calculatedPrice} DH · ${payload.phone}`;
-      summary.hidden = false;
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({event:'tiktok_account_form_success',service:payload.service,quantity:payload.quantity,value:payload.quantity === '5+' ? undefined : Number(payload.calculatedPrice),currency:'MAD'});
       if (window.ttq?.track) window.ttq.track('Lead',{service:payload.service,quantity:payload.quantity});

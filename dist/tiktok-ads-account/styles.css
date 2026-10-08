@@ -93,3 +93,7 @@ html[dir=ltr] .account-timeline-card{direction:ltr}
 @media(max-width:760px){.account-sticky{justify-content:center;padding-inline:16px}.account-sticky a{width:min(100%,480px);min-height:53px;text-align:center;font-size:15px}}
 .account-pricing-centered{display:flex;justify-content:center}.account-pricing-centered .account-pricing-card{width:min(100%,580px)}
 @media(max-width:600px){.account-pills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.account-pills span{display:flex;align-items:center;justify-content:center;min-width:0;padding:7px 4px;text-align:center;font-size:clamp(9px,2.4vw,11px);line-height:1.35}}
+
+.thanks-home-link{display:inline-flex;align-items:center;gap:8px;color:#315572;font-weight:800;text-underline-offset:4px}.thanks-home-link:hover{color:#061f35}.thank-you-home-icon{width:18px;height:18px;flex:none}
+
+.account-body .footer .footer-language-switch .language-switch a.active{color:#f7d398}

@@ -32,8 +32,9 @@
     .thank-you-actions[hidden]{display:none}
     .thank-you-portfolio{display:inline-flex;align-items:center;justify-content:center;min-height:49px;padding:9px 28px;background:#d5a24a;color:#061f35;border-radius:9px;font-weight:900;box-shadow:0 7px 18px #9e712e40;text-decoration:none}
     .thank-you-portfolio:hover{background:#e7b65f;color:#061f35}
-    .thank-you-home{color:#315572;font-weight:800;text-underline-offset:4px}
+    .thank-you-home{color:#315572;font-weight:800;text-underline-offset:4px;display:inline-flex;align-items:center;gap:8px}
     .thank-you-home:hover{color:#061f35}
+    .thank-you-home-icon{width:18px;height:18px;flex:none}
     .retry-button{min-height:45px;padding:8px 20px;border:0;border-radius:9px;background:#d5a24a;color:#061f35;font:inherit;font-weight:900;cursor:pointer}
     .retry-button[hidden]{display:none}
     @media(max-width:600px){.thank-you-card{padding:30px 23px}.thank-you-card h1{font-size:25px}.thank-you-main{padding-top:92px}}
@@ -48,7 +49,7 @@
     <div class="mark pending" id="status-mark" aria-hidden="true"></div>
     <div role="status" aria-live="polite"><h1 id="status-heading">Confirmation de votre demande</h1><p id="status-description">Nous enregistrons vos données. La confirmation apparaîtra dès réception de votre demande.</p></div>
     <button class="retry-button" id="retry-button" type="button" hidden>Réessayer</button>
-    <div class="thank-you-actions" id="thank-you-actions" hidden><a class="thank-you-portfolio" href="/fr/portfolio">Voir nos réalisations</a><a class="thank-you-home" href="/fr/">Retour à l’accueil</a></div>
+    <div class="thank-you-actions" id="thank-you-actions" hidden><a class="thank-you-portfolio" href="/fr/portfolio">Voir nos réalisations</a><a class="thank-you-home" href="/fr/"><svg class="thank-you-home-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></svg>Retour à l’accueil</a></div>
   </div></main>
   <a class="floating-whatsapp" href="https://wa.me/212708797386" target="_blank" rel="noopener noreferrer" aria-label="Discuter sur WhatsApp"><img src="/assets/whatsapp.svg" width="29" height="29" alt="" aria-hidden="true"></a>
   <script>const header=document.getElementById('site-header'),nav=document.getElementById('primary-nav'),toggle=header.querySelector('.nav-toggle');const closeNav=()=>{nav.classList.remove('header-nav-open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Ouvrir le menu')};toggle.addEventListener('click',()=>{const opening=toggle.getAttribute('aria-expanded')!=='true';nav.classList.toggle('header-nav-open',opening);toggle.setAttribute('aria-expanded',String(opening));toggle.setAttribute('aria-label',opening?'Fermer le menu':'Ouvrir le menu')});nav.addEventListener('click',event=>{if(event.target.closest('a'))closeNav()});document.addEventListener('click',event=>{if(!header.contains(event.target))closeNav()});document.addEventListener('keydown',event=>{if(event.key==='Escape')closeNav()});</script>
