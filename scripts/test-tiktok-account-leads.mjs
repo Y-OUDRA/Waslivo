@@ -4,16 +4,22 @@ import vm from 'node:vm';
 
 const source = readFileSync(new URL('./website-offer-leads.gs', import.meta.url), 'utf8');
 const tabs = new Map([['Website Leads', []]]);
+const queueRows = [];
 const notifications = [];
 const cache = new Map();
 const sheet = name => ({
+  getName: () => name,
   getLastRow: () => tabs.get(name).length,
   appendRow: row => tabs.get(name).push(row),
+  getDataRange: () => ({getValues:() => tabs.get(name)}),
+  getRange: (row,column,_height,width) => ({setValues:values => tabs.get(name)[row-1].splice(column-1,width,...values[0])}),
 });
+const queueSheet = {getName:() => 'Telegram Queue',getLastRow:() => queueRows.length,appendRow:row => queueRows.push(row),getDataRange:() => ({getValues:() => queueRows}),getRange:(row,column,_height,width) => ({setValues:values => queueRows[row-1].splice(column-1,width,...values[0])})};
 const context = {
   console:{warn(){},error(){}},
-  SpreadsheetApp:{openById:() => ({getSheetByName:name => tabs.has(name) ? sheet(name) : null,insertSheet:name => {tabs.set(name,[]);return sheet(name);}})},
-  LockService:{getScriptLock:() => ({waitLock(){},releaseLock(){}})},
+  SpreadsheetApp:{openById:() => ({getSheetByName:name => name === 'Telegram Queue' ? queueSheet : (tabs.has(name) ? sheet(name) : null),insertSheet:name => {if(name==='Telegram Queue')return queueSheet;tabs.set(name,[]);return sheet(name);}})},
+  LockService:{getScriptLock:() => ({waitLock(){},tryLock(){return true},releaseLock(){}})},
+  ScriptApp:{getProjectTriggers:() => [],newTrigger:() => ({timeBased(){return this},everyMinutes(){return this},create(){}})},
   CacheService:{getScriptCache:() => ({get:id => cache.get(id),put:(id,value) => cache.set(id,value)})},
   PropertiesService:{getScriptProperties:() => ({getProperty:key => ({TELEGRAM_BOT_TOKEN:'test-token',TELEGRAM_CHAT_ID:'1234'})[key]})},
   UrlFetchApp:{fetch:(_url,options) => {notifications.push(JSON.parse(options.payload).text);return {getResponseCode:() => 200};}},
@@ -27,11 +33,14 @@ assert.match(post(payload),/"success":true/);
 assert.equal(tabs.get('TikTok Account Leads').length,2);
 assert.equal(tabs.get('TikTok Account Leads')[1][6],800); // Price is computed server-side.
 assert.equal(tabs.get('TikTok Account Leads')[1][9],'tiktok');
+assert.equal(notifications.length,0);
+context.processTelegramQueue();
 assert.match(notifications[0],/TikTok Ads Account/);
 const shortForm = {...payload,requestId:'123e4567-e89b-42d3-a456-426614174006',monthlySpend:'',quantity:'1'};
 assert.match(post(shortForm),/"success":true/);
 assert.equal(tabs.get('TikTok Account Leads')[2][4],'');
 assert.equal(tabs.get('TikTok Account Leads')[2][6],400);
+context.processTelegramQueue();
 assert.doesNotMatch(notifications[1],/ميزانية TikTok الشهرية/);
 assert.match(post(payload),/"success":true/);
 assert.equal(tabs.get('TikTok Account Leads').length,3);
